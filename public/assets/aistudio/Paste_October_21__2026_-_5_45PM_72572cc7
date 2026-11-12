@@ -1,0 +1,1600 @@
+# SCHLAR — PROMPT 6: ACCOUNTANT / FEE MANAGER AND HR / STAFF MANAGER
+
+## 1. PRIMARY OBJECTIVE
+
+Continue building the existing SCHLAR School Management System frontend demo.
+
+Implement two complete, professionally designed, interactive role workspaces:
+
+1. Accountant / Fee Manager
+2. HR / Staff Manager
+
+This is Prompt 6 of the existing 12-prompt SCHLAR implementation roadmap.
+
+The objective is to demonstrate realistic school financial administration and human-resource management using coherent data, functional workflows, meaningful validation, appropriate permissions, and consistent navigation.
+
+**Do not restart the project, replace the architecture, or rebuild unrelated modules.**
+
+First inspect the current codebase and the work completed in Prompts 1–5. Reuse the existing application shell, centralized role configuration, permissions, theme system, routing, state management, data models, reusable components, and persistence mechanisms.
+
+Do not assume previous prompts were implemented perfectly. Verify what exists, identify missing functionality, and extend it carefully.
+
+The product principle remains:
+
+"Simple enough for a first-time user, powerful enough for a real school."
+
+Simplify workflows and navigation, not capabilities, data integrity, or security boundaries.
+
+This remains a frontend demonstration. Implement genuine frontend interactions using the existing application state. Never claim that the application has a production database, backend security, real payroll processing, actual bank integration, or cross-device synchronization unless those capabilities genuinely exist.
+
+---
+
+## 2. MANDATORY EXISTING-PROJECT PRESERVATION
+
+Before coding, inspect:
+
+- The application entry point.
+- Routing and navigation architecture.
+- Existing role-selection flow.
+- Centralized role and permission configuration.
+- Existing Admin and other role workspaces.
+- Existing Accountant or HR pages, if any.
+- Shared student and staff models.
+- Existing fee structures, payments, concessions, and receipts.
+- Existing staff attendance and leave records.
+- Existing timetable and teacher assignments.
+- Shared notifications and activity log, if implemented.
+- Theme tokens and all 12 existing palettes.
+- Form, table, modal, confirmation, and feedback components.
+- Existing state management and browser persistence.
+- Existing demo data and identifier conventions.
+
+Preserve the existing ten roles exactly:
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not add a Student role or Super Admin role.
+
+Do not merge Accountant / Fee Manager or HR / Staff Manager into Admin.
+
+Do not alter unrelated role permissions without a specific integration requirement.
+
+Do not create duplicate role registries, duplicate theme engines, competing routing systems, or incompatible storage keys.
+
+If a shared component or data model already exists, extend it instead of building a disconnected replacement.
+
+Preserve all working functionality from earlier prompts.
+
+---
+
+## 3. ROLE SELECTION AND WORKSPACE ENTRY
+
+Integrate both roles into the existing role-selection system.
+
+Expected flow:
+
+Role Selection → Accountant / Fee Manager → Accountant Workspace.
+
+Role Selection → HR / Staff Manager → HR Workspace.
+
+Reuse the existing role-selection screen and workspace shell.
+
+Both workspaces must provide:
+
+- Role-specific sidebar.
+- Top navigation bar.
+- Page title and breadcrumbs where appropriate.
+- Profile menu.
+- Notifications where supported.
+- Global or module-level search where useful.
+- Active navigation indicators.
+- Theme controls compatible with the existing theme system.
+- Responsive navigation.
+- Return-to-role-selection action.
+- Correct route handling on refresh and browser back/forward.
+
+Every sidebar item must open an implemented page.
+
+Do not leave placeholder pages, dead links, or buttons that merely display an unrelated success message.
+
+---
+
+## 4. DESIGN SYSTEM AND EXPERIENCE QUALITY
+
+Use the existing SCHLAR design system without replacing it.
+
+Preserve the twelve established palettes and the custom theme editor.
+
+The default Petrol & Copper palette remains:
+
+- Primary: #164E55
+- Secondary: #287B7A
+- Accent: #C47D54
+- Background: #F5F0E7
+- Surface: #FFFFFF
+
+Use the existing design tokens for text, borders, focus rings, hover states, disabled controls, errors, warnings, and success indicators.
+
+Build professional, readable interfaces suitable for a real school demonstration.
+
+Avoid:
+
+- Oversized dashboards with dozens of unrelated cards.
+- Huge forms containing every field in one uninterrupted section.
+- Excessive nested navigation.
+- Dense financial tables with unreadable values.
+- Unnecessary decorative charts.
+- Fake financial metrics.
+- Fake payroll totals.
+- Fake payment confirmations.
+- Fake document uploads.
+- Destructive actions without confirmation.
+- Replacing real workflows with static cards.
+
+Use separate overview, directory, detail, create/edit, and report pages where they improve usability.
+
+Support desktop, tablet, and mobile layouts.
+
+---
+
+# PART A — ACCOUNTANT / FEE MANAGER
+
+## 5. ACCOUNTANT WORKSPACE NAVIGATION
+
+Create a dedicated Accountant / Fee Manager workspace with the following navigation.
+
+### Direct links
+
+- Dashboard
+- Collection Overview
+- Outstanding Balances
+- Financial Reports
+- Activity Log, if supported
+
+### Expandable folder: Fee Management
+
+- Fee Structure
+- Student Fee Records
+- Assign Fees
+- Concessions
+- Refunds and Adjustments
+
+### Expandable folder: Collections
+
+- Collect & Record Fees
+- Payment History
+- Receipts
+- Reversed or Cancelled Transactions, if supported
+
+### Expandable folder: Reconciliation
+
+- Reconciliation Overview
+- Unmatched Payments
+- Reconciliation History, if supported
+
+Do not force every item into a submenu. Use direct links for high-value overview destinations and folders for related operational pages.
+
+If the existing navigation architecture uses different conventions, adapt this structure while preserving the distinction between direct links and expandable folders.
+
+Navigation requirements:
+
+- Folder arrows expand or collapse their own children.
+- Clicking a direct link opens the page immediately.
+- Submenu items open distinct pages.
+- The active page is highlighted.
+- The containing folder automatically expands for an active child page.
+- Unrelated folders do not all collapse whenever one is opened.
+- Routes remain stable on refresh and browser navigation.
+- No duplicate routes for the same function.
+- Unauthorized routes are blocked.
+- Mobile navigation uses an appropriate drawer or compact navigation pattern.
+
+---
+
+## 6. ACCOUNTANT DASHBOARD
+
+Create a useful financial overview derived from the actual shared demo data.
+
+Display appropriate metrics, such as:
+
+- Total assessed fees for the selected academic period.
+- Total collected.
+- Outstanding balance.
+- Overdue balance.
+- Number of students with outstanding balances.
+- Collection performance.
+- Recent valid transactions.
+- Upcoming fee due dates.
+- Recent payment reversals or adjustments, if supported.
+- Collection trend over a selectable period.
+
+Do not show every metric as an equally prominent card.
+
+Prioritize the most important financial information and provide links to the relevant detailed pages.
+
+### Dashboard calculations
+
+Calculate metrics from fee obligations, concessions, payment records, and transaction statuses.
+
+Use explicit definitions.
+
+For example:
+
+- Assessed fees: the sum of valid fee obligations for the selected scope and period.
+- Net collectible amount: assessed fees less applicable concessions and approved adjustments, according to the established fee model.
+- Net collected amount: valid completed payments less completed reversals or refunds, where the accounting model treats those as reductions in collections.
+- Outstanding balance: collectible obligations less payments allocated to those obligations, applying the existing allocation rules.
+- Overdue balance: the unpaid portion of obligations whose due dates have passed.
+
+Do not confuse gross collections with net collections.
+
+Do not count pending, failed, cancelled, or reversed payments as completed collections.
+
+Avoid double-counting payments that have already been allocated.
+
+If the existing data model uses a different accounting convention, preserve it, document the convention, and apply it consistently.
+
+Every dashboard metric must be traceable to the underlying demo records.
+
+If there are no transactions, show a useful empty state instead of invented figures.
+
+---
+
+## 7. FEE STRUCTURE MANAGEMENT
+
+Create a dedicated Fee Structure page.
+
+Support viewing, creating, editing, and managing fee structures using the existing data model.
+
+Appropriate fields include:
+
+- Fee structure name.
+- Academic year.
+- Applicable class or classes.
+- Fee category.
+- Amount.
+- Payment frequency.
+- Due date or schedule.
+- Mandatory or optional status, if supported.
+- Effective dates.
+- Active or inactive status.
+
+Possible fee categories include:
+
+- Tuition.
+- Admission.
+- Examination.
+- Laboratory.
+- Library.
+- Transport.
+- Other school-approved charges.
+
+Use configurable categories where appropriate instead of hardcoding an inflexible list.
+
+### Requirements
+
+- Create and edit fee structures.
+- Validate required fields and amounts.
+- Reject negative fee amounts.
+- Validate dates and academic periods.
+- Detect duplicate or conflicting structures where relevant.
+- Prevent unintended retroactive changes to historical financial records.
+- Preserve historical fee obligations after a structure is modified.
+- Require confirmation before deactivating a structure that has dependent records.
+- Show which classes and academic periods use the structure.
+
+Changing a fee structure must not silently rewrite previously assessed obligations or completed transactions.
+
+If fee versioning does not exist, implement the smallest compatible mechanism necessary to preserve historical assessed amounts.
+
+Do not silently delete a fee structure that is referenced by financial records.
+
+---
+
+## 8. STUDENT FEE RECORDS
+
+Create a dedicated Student Fee Records directory.
+
+Use existing student records and fee obligations rather than creating a second student database.
+
+Provide:
+
+- Student ID.
+- Student name.
+- Class and section.
+- Academic year.
+- Applicable fee obligations.
+- Total assessed amount.
+- Concessions.
+- Amount paid.
+- Outstanding balance.
+- Next due date.
+- Payment status.
+
+Support:
+
+- Search by student name or ID.
+- Filters by class, section, academic year, fee category, and status where applicable.
+- Sorting.
+- Pagination or another sensible list strategy.
+- Opening a detailed fee account.
+- Viewing transaction history.
+- Viewing individual fee obligations.
+- Viewing outstanding items.
+- Viewing receipts linked to the student.
+
+Use stable student IDs for relationships.
+
+Do not expose unnecessary personal information.
+
+A student's financial account must remain linked to the correct student even if the student changes class or section.
+
+### Student fee account detail
+
+Provide distinct sections for:
+
+- Fee summary.
+- Fee obligations.
+- Payment allocations.
+- Concessions.
+- Adjustments and refunds.
+- Receipts.
+- Transaction history.
+
+Do not cram the entire financial history into one oversized page.
+
+---
+
+## 9. ASSIGN FEES
+
+Create a dedicated Assign Fees workflow.
+
+Allow authorized users to assign existing fee structures to eligible students or groups.
+
+Workflow:
+
+1. Select academic year.
+2. Select class, section, or an individual student.
+3. Select an applicable fee structure.
+4. Review the fee components.
+5. Review the effective dates and due schedule.
+6. Validate eligibility and existing assignments.
+7. Preview the resulting obligations.
+8. Confirm the assignment.
+9. Display the actual result and any skipped or conflicting records.
+
+### Validation
+
+- Prevent accidental duplicate obligations.
+- Do not assign a fee structure to an ineligible academic period.
+- Preserve existing payments and historical obligations.
+- Do not silently overwrite manually adjusted records.
+- Explain skipped or conflicting assignments.
+- Prevent a failed assignment from partially corrupting records.
+
+If bulk assignment is implemented, show a preview before applying it.
+
+Only report successful assignments after the records have actually been created.
+
+---
+
+## 10. COLLECT AND RECORD FEES
+
+Create a dedicated Collect & Record Fees workflow.
+
+This is a core operational feature and must be functional.
+
+### Workflow
+
+1. Search for and select a student.
+2. Open the student's outstanding fee obligations.
+3. Select one or more eligible obligations.
+4. Display each obligation's assessed amount, previous payments, concessions, and remaining balance.
+5. Enter the amount being received.
+6. Select a supported payment method.
+7. Enter a payment date.
+8. Enter a transaction reference when applicable.
+9. Review the payment allocation.
+10. Validate the transaction.
+11. Confirm recording.
+12. Update the underlying demo payment and allocation records.
+13. Display a confirmation with the actual transaction details.
+14. Make the corresponding receipt available if receipt generation is implemented.
+
+Possible payment methods:
+
+- Cash.
+- Bank transfer.
+- Cheque.
+- UPI.
+- Card.
+- Other configured methods.
+
+These are demo payment-recording options. Selecting a method does not imply integration with a real payment gateway or bank.
+
+### Financial validation
+
+- Reject zero or negative payment amounts.
+- Reject invalid dates.
+- Prevent over-allocation beyond the eligible balance unless the existing accounting model explicitly supports advance payments.
+- Prevent duplicate transaction references where uniqueness is required.
+- Prevent repeated submission from creating duplicate transactions.
+- Do not accept a payment against an ineligible or cancelled obligation.
+- Respect the existing partial-payment rules.
+- Validate the total allocation against the payment amount.
+- Preserve historical transactions.
+- Do not count a pending transaction as completed.
+- Do not modify an existing completed payment to simulate a new payment.
+
+Support partial payments if compatible with the existing fee model.
+
+If advance payments are not supported, clearly prevent them rather than silently accepting them.
+
+### Transaction status
+
+Use explicit statuses supported by the model, such as:
+
+- Pending.
+- Completed.
+- Failed.
+- Cancelled.
+- Reversed.
+
+Only completed transactions should affect completed collection totals.
+
+A successful frontend save means a demo record was stored. It does not prove that money was actually received.
+
+---
+
+## 11. RECEIPTS
+
+Create a dedicated Receipts page.
+
+Each receipt should link to an existing payment record and include relevant details:
+
+- Receipt number.
+- Student ID and name.
+- Payment date.
+- Amount received.
+- Payment method.
+- Transaction reference where available.
+- Applicable fee obligations.
+- Allocation breakdown.
+- Issued-by demo account where supported.
+- Receipt status, if implemented.
+
+### Receipt functionality
+
+- Search by receipt number or student.
+- Filter by date and payment status.
+- Open receipt details.
+- Navigate from a receipt to its source transaction.
+- Print a receipt if printing is implemented.
+- Export or download a PDF only if a genuine PDF-generation implementation exists.
+
+Receipt identifiers must be stable and unique.
+
+Do not generate a new receipt number every time the same receipt is opened.
+
+Do not generate receipts for failed, pending, or cancelled transactions unless the established model explicitly supports a clearly labelled provisional document.
+
+Do not fabricate transaction references or payment confirmations.
+
+---
+
+## 12. OUTSTANDING BALANCES AND COLLECTION FOLLOW-UP
+
+Create a dedicated Outstanding Balances page.
+
+Include:
+
+- Student.
+- Class and section.
+- Outstanding amount.
+- Overdue amount.
+- Due date.
+- Days overdue, where applicable.
+- Fee category.
+- Last recorded payment.
+- Payment status.
+
+Provide useful filters:
+
+- Academic year.
+- Class and section.
+- Due soon.
+- Overdue.
+- Partially paid.
+- Unpaid.
+- Fee category.
+
+Calculate overdue status from actual due dates and unpaid balances.
+
+Do not mark a fully paid obligation as overdue.
+
+Provide navigation from an outstanding record to the relevant student fee account.
+
+If reminder functionality exists, reuse it. Otherwise, a local demo reminder log may be implemented if useful.
+
+Do not claim that SMS, email, or WhatsApp reminders were actually delivered.
+
+---
+
+## 13. CONCESSIONS
+
+Create a dedicated Concessions page.
+
+Support authorized concession records with fields such as:
+
+- Student.
+- Fee obligation or applicable fee structure.
+- Concession type.
+- Amount or percentage.
+- Reason.
+- Effective period.
+- Status.
+- Approval details, where supported.
+
+### Validation
+
+- Reject negative concessions.
+- Validate percentages within the permitted range.
+- Prevent concessions from exceeding eligible charges unless the fee model explicitly permits this.
+- Prevent duplicate or conflicting concessions where applicable.
+- Preserve previous concession records.
+- Recalculate affected balances using the established accounting rules.
+- Require approval for concessions that exceed the configured limit or require higher authorization.
+
+Use the existing centralized permission system to enforce approval requirements.
+
+If approval workflows do not exist, implement a minimal compatible pending/approved/rejected state rather than automatically approving every concession.
+
+Only approved concessions should affect collectible balances when approval is required.
+
+Record a meaningful demo activity entry for important concession changes if the existing activity log supports it.
+
+---
+
+## 14. REFUNDS, ADJUSTMENTS, AND REVERSALS
+
+Implement these functions only to the extent supported by the existing accounting architecture, but do not silently omit necessary financial integrity controls.
+
+Provide a dedicated Refunds and Adjustments page.
+
+A refund must reference the original eligible payment.
+
+An adjustment must reference the relevant obligation or financial record.
+
+A reversal must preserve the original transaction and its history.
+
+Required controls:
+
+- Record a reason.
+- Validate the amount.
+- Prevent duplicate processing.
+- Prevent a refund from exceeding the refundable amount.
+- Track the current status.
+- Require approval where configured.
+- Update balances consistently.
+- Preserve the original transaction.
+- Display the relationship between the original transaction and the refund, adjustment, or reversal.
+
+Do not physically delete completed financial transactions.
+
+Do not create a refund merely by editing the original payment amount.
+
+Do not treat a requested or pending refund as a completed refund.
+
+If the demo cannot represent these workflows reliably, document the limitation and implement only the operations that can be represented consistently.
+
+---
+
+## 15. FINANCIAL REPORTS AND RECONCILIATION
+
+Create a dedicated Financial Reports section.
+
+Provide meaningful reports based on actual demo records, such as:
+
+- Collection summary.
+- Fee-category collection.
+- Class-wise collection.
+- Outstanding balances.
+- Overdue balances.
+- Payment-method summary.
+- Daily or monthly collection trend.
+- Concession summary.
+- Refund and adjustment summary.
+- Transaction history.
+
+Provide useful date and academic-period filters.
+
+Where reports compare assessed obligations with collections, define the reporting scope and do not compare incompatible date ranges or accounting measures.
+
+If chart components already exist, reuse them.
+
+Do not add charts merely for decoration.
+
+### Reconciliation
+
+If the existing application has external payment references or recorded bank transactions, build a suitable reconciliation workflow around those records.
+
+If no external settlement data exists, do not pretend to reconcile actual bank accounts.
+
+A local demo reconciliation interface may support:
+
+- Recorded transaction reference.
+- Imported or manually entered statement reference, if implemented.
+- Amount and date comparison.
+- Matched, unmatched, or exception status.
+- Manual match confirmation.
+- Reconciliation history.
+
+Do not mark a payment as reconciled merely because it exists in the local payment list.
+
+Do not claim real bank connectivity.
+
+### Export
+
+Provide CSV, PDF, or print actions only where the corresponding export is actually implemented.
+
+Do not display fake download buttons.
+
+---
+
+# PART B — HR / STAFF MANAGER
+
+## 16. HR WORKSPACE NAVIGATION
+
+Create a separate HR / Staff Manager workspace.
+
+### Direct links
+
+- Dashboard.
+- Staff Overview.
+- Staff Directory.
+- Staff Attendance Overview.
+- Leave Overview.
+- HR Reports, if implemented.
+
+### Expandable folder: Staff Records
+
+- All Staff.
+- Add Staff Member.
+- Staff Profiles.
+- Departments.
+- Designations.
+- Employment Types.
+- Staff Records & Archive.
+
+### Expandable folder: Recruitment
+
+- Recruitment Overview.
+- Job Openings.
+- Candidates.
+- Interview Schedule.
+- Hiring Decisions.
+
+### Expandable folder: Attendance & Leave
+
+- Staff Attendance.
+- Attendance Corrections.
+- Leave Requests.
+- Leave Approvals.
+- Leave Calendar.
+- Leave Balances.
+
+### Expandable folder: Documents
+
+- Staff Documents.
+- Document Categories.
+- Expiry Tracking, if supported.
+
+### Expandable folder: Reports
+
+- Staff Directory Report.
+- Headcount Report.
+- Staff Attendance Report.
+- Leave Report.
+- Recruitment Report.
+- Document Expiry Report, if supported.
+
+Preserve the hybrid navigation principle: direct links for important destinations and expandable folders for meaningful groups.
+
+Do not create unnecessary nesting or dead routes.
+
+---
+
+## 17. HR DASHBOARD
+
+Create a professional HR dashboard based on shared staff and HR demo records.
+
+Include relevant metrics such as:
+
+- Total active staff.
+- Teacher count.
+- Non-teaching staff count.
+- Staff by department.
+- Staff on leave today.
+- Pending leave requests.
+- Recent hires.
+- Recruitment pipeline.
+- Upcoming document expirations, if supported.
+- Attendance summary.
+- Important HR tasks.
+
+Calculate these values from underlying records.
+
+Define what counts as active staff and apply that definition consistently.
+
+Do not count archived, terminated, or inactive staff as active employees.
+
+Do not infer leave or employment status from names or unrelated records.
+
+Use meaningful links from each metric to its detailed page.
+
+If there are no relevant records, show a helpful empty state.
+
+---
+
+## 18. STAFF DIRECTORY AND STAFF PROFILES
+
+Reuse the existing shared staff model.
+
+Do not create a separate employee record for a teacher simply because the teacher appears in the HR workspace.
+
+A teacher must remain the same staff member when viewed from Admin, HR, and Teacher-related modules.
+
+### Staff directory
+
+Provide:
+
+- Employee ID.
+- Full name.
+- Avatar or photo where available.
+- Department.
+- Designation.
+- Employment type.
+- Joining date.
+- Employment status.
+- Contact details only where authorized.
+
+Support:
+
+- Search by employee ID or name.
+- Department filters.
+- Designation filters.
+- Employment-type filters.
+- Status filters.
+- Sorting.
+- Pagination or sensible list handling.
+- Opening staff profiles.
+- Creating and editing records.
+- Archiving or deactivating records with confirmation.
+
+### Staff profile
+
+Create a dedicated staff profile page with logically separated sections:
+
+1. Overview.
+2. Employment Information.
+3. Contact Information.
+4. Department and Designation.
+5. Qualifications and Professional Details.
+6. Teacher Assignments, for teaching staff.
+7. Attendance.
+8. Leave History.
+9. Documents.
+10. Activity or Change History, if supported.
+
+Include appropriate fields such as:
+
+- Employee ID.
+- Full name.
+- Contact details.
+- Address where appropriate.
+- Department.
+- Designation.
+- Employment type.
+- Joining date.
+- Employment status.
+- Qualifications.
+- Professional experience.
+- Assigned subjects and classes for teachers.
+- Document references where supported.
+
+Do not collect unnecessary sensitive information.
+
+Do not expose confidential HR data to unauthorized roles.
+
+---
+
+## 19. ADD AND EDIT STAFF MEMBER
+
+Create a structured staff registration and editing workflow.
+
+Use logical form sections instead of one enormous form.
+
+Suggested sections:
+
+A. Basic Information.
+
+B. Contact Information.
+
+C. Employment Details.
+
+D. Department and Designation.
+
+E. Qualifications and Professional Information.
+
+F. Teacher Assignments, when applicable.
+
+G. Document References, when supported.
+
+### Validation
+
+- Require the fields essential to the existing staff model.
+- Prevent duplicate employee IDs.
+- Validate contact fields where appropriate.
+- Validate joining dates.
+- Validate employment types and status values.
+- Ensure departments and designations reference valid records.
+- Ensure teacher assignments reference existing classes, sections, subjects, and academic periods.
+- Avoid creating duplicate staff records when editing.
+- Preserve unrelated historical records.
+
+Use existing shared form components and validation conventions.
+
+Show field-level validation and clear save feedback.
+
+Do not claim that documents have been uploaded unless an actual upload or demo-file mechanism exists.
+
+---
+
+## 20. DEPARTMENTS, DESIGNATIONS, AND EMPLOYMENT TYPES
+
+Create dedicated management pages for departments, designations, and employment types where these are not already implemented.
+
+Support:
+
+- Listing records.
+- Creating records.
+- Editing records.
+- Searching or filtering where useful.
+- Active/inactive status where supported.
+- Viewing associated staff.
+
+Validate relationships before deactivating a record.
+
+Do not silently delete a department or designation that is referenced by staff records.
+
+Use stable IDs rather than display-name matching.
+
+Do not duplicate these configuration records across the Admin and HR workspaces.
+
+Where the same configuration is available to Admin, both workspaces must use the same underlying records.
+
+---
+
+## 21. TEACHER AND SUBJECT ASSIGNMENTS
+
+Integrate with the existing academic and timetable models.
+
+Teacher assignments should link the existing staff member to:
+
+- Academic year.
+- Class.
+- Section.
+- Subject.
+- Relevant assignment or workload records, if supported.
+
+Provide a dedicated Teacher & Subject Assignments page or integrate with an existing shared page.
+
+Support:
+
+- Viewing assignments.
+- Creating assignments.
+- Editing assignments.
+- Removing or ending assignments according to the existing model.
+- Filtering by teacher, subject, class, section, and academic year.
+- Detecting invalid or duplicate assignments.
+- Reviewing timetable conflicts where relevant.
+
+Do not create a new staff member when assigning an existing teacher.
+
+Do not break existing timetable references when a teacher's assignment changes.
+
+Preserve historical assignments where necessary.
+
+Do not invent teacher qualifications or eligibility rules that are not represented in the demo data.
+
+---
+
+## 22. STAFF ATTENDANCE
+
+Create a dedicated Staff Attendance page.
+
+Use existing staff attendance records if available.
+
+Include:
+
+- Date selection.
+- Staff directory or authorized staff list.
+- Attendance status.
+- Recorded time or session information where supported.
+- Attendance history.
+- Filters by department and status.
+- Correction workflow.
+- Summary reports.
+
+Use the existing attendance model if it can represent staff attendance without compromising student attendance data.
+
+If student and staff attendance share a model, preserve the record-type distinction.
+
+Do not accidentally modify student attendance while working on staff attendance.
+
+### Attendance corrections
+
+A correction must:
+
+- Reference the correct staff member.
+- Reference the relevant date or session.
+- Record the previous and new status where supported.
+- Require a reason.
+- Respect correction permissions.
+- Preserve a useful history.
+- Update relevant summaries.
+
+Do not silently overwrite an existing record without preserving history where correction history is supported.
+
+If attendance approval is configured, follow that workflow.
+
+---
+
+## 23. LEAVE MANAGEMENT
+
+Build a complete leave-management workflow.
+
+Create dedicated pages for:
+
+- Leave Requests.
+- Leave Approvals.
+- Leave Calendar.
+- Leave Balances.
+- Leave History.
+
+Use existing leave records if they exist.
+
+### Leave request information
+
+Include appropriate fields such as:
+
+- Staff member.
+- Leave type.
+- Start date.
+- End date.
+- Number of leave days.
+- Reason.
+- Request date.
+- Current status.
+- Approval or rejection details.
+- Relevant document reference, if supported.
+
+### Workflow
+
+1. Open a leave request.
+2. Review the staff member and requested dates.
+3. Validate the request.
+4. Check overlapping leave requests.
+5. Check leave balance when the model supports it.
+6. Approve, reject, or request correction according to the existing workflow.
+7. Record the decision and reason.
+8. Update leave balances only when the configured rules require it.
+9. Update the leave calendar and relevant summaries.
+
+### Validation
+
+- End date must not precede start date.
+- Prevent duplicate or overlapping requests where applicable.
+- Calculate leave duration consistently.
+- Apply the configured leave-day counting rules.
+- Respect weekends, holidays, and half-day rules only if supported by the existing configuration.
+- Prevent unauthorized approval.
+- Do not automatically approve every request.
+- Do not deduct leave balance for rejected requests.
+- Avoid double-counting a request that is edited or resubmitted.
+
+If leave balances are not yet implemented, clearly distinguish a request-history workflow from a fully balance-managed leave system.
+
+Do not invent payroll deductions.
+
+---
+
+## 24. RECRUITMENT MANAGEMENT
+
+Implement a useful recruitment workflow.
+
+Create pages for:
+
+- Recruitment Overview.
+- Job Openings.
+- Candidates.
+- Interview Schedule.
+- Hiring Decisions.
+
+### Job openings
+
+Fields may include:
+
+- Job title.
+- Department.
+- Designation.
+- Employment type.
+- Number of openings.
+- Description.
+- Opening date.
+- Closing date.
+- Status.
+
+Validate dates and opening counts.
+
+### Candidate records
+
+Fields may include:
+
+- Candidate ID.
+- Name.
+- Contact information.
+- Applied role.
+- Application date.
+- Recruitment stage.
+- Interview date where applicable.
+- Notes permitted by the HR role.
+
+Avoid collecting unnecessary sensitive information.
+
+### Recruitment workflow
+
+Support a coherent sequence such as:
+
+Applied → Screening → Interview → Decision → Hired or Rejected.
+
+Allow stages to be changed through validated actions.
+
+Prevent invalid transitions where workflow rules require it.
+
+Keep recruitment records separate from active staff records until the candidate is actually hired.
+
+### Hiring conversion
+
+If a candidate is hired:
+
+- Create or link the appropriate staff record.
+- Prevent duplicate staff records.
+- Preserve the candidate's recruitment history.
+- Record the hiring decision.
+- Require the necessary employment details before creating an active employee record.
+
+Do not create an active staff member merely because a candidate's status is changed to an arbitrary value.
+
+If recruitment conversion is not supported by the existing model, implement a minimal coherent workflow and document the limitation.
+
+---
+
+## 25. STAFF DOCUMENTS AND EXPIRY TRACKING
+
+Create a Staff Documents page if compatible with the existing data model.
+
+Represent document records using stable identifiers and references to the appropriate staff member.
+
+Possible fields include:
+
+- Document ID.
+- Staff member.
+- Document category.
+- Display name.
+- Issue date, if applicable.
+- Expiry date, if applicable.
+- Verification status, if supported.
+- Document reference or attachment.
+- Notes permitted by the role.
+
+Provide:
+
+- Staff-specific document lists.
+- Category filters.
+- Expiry filters.
+- Expiring-soon indicators.
+- Expired-document indicators.
+- Verification status where supported.
+
+Do not pretend that a document file has been uploaded if only metadata has been saved.
+
+If file uploads are unsupported, use a clearly labelled demo document reference or metadata-only workflow.
+
+Do not expose document contents or sensitive HR details to unauthorized roles.
+
+Avoid storing sensitive documents in insecure browser storage.
+
+---
+
+## 26. HR REPORTS
+
+Create meaningful HR reports from the shared staff, attendance, leave, and recruitment data.
+
+Include:
+
+- Staff directory.
+- Active headcount.
+- Staff by department.
+- Staff by designation.
+- Employment-type distribution.
+- Staff attendance.
+- Leave requests and approvals.
+- Recruitment pipeline.
+- Hiring activity.
+- Document expiry, where supported.
+
+Provide filters where appropriate.
+
+Calculate report values from the underlying records.
+
+Ensure report filters affect the displayed results.
+
+Do not invent statistics or claim that a report represents a real school.
+
+Only implement exports that genuinely work.
+
+Protect confidential HR information according to the existing permission model.
+
+---
+
+# PART C — SHARED ARCHITECTURE, DATA, AND PERMISSIONS
+
+## 27. CENTRALIZED ROLE-BASED ACCESS CONTROL
+
+Reuse the existing centralized permission system.
+
+Extend it only where necessary.
+
+Suggested permission identifiers include:
+
+### Accountant
+
+- fees.view_dashboard
+- fees.view_structure
+- fees.create_structure
+- fees.edit_structure
+- fees.assign
+- fees.view_student_records
+- fees.collect
+- fees.view_payments
+- fees.issue_receipt
+- fees.view_outstanding
+- fees.manage_concessions
+- fees.approve_concessions
+- fees.manage_refunds
+- fees.approve_refunds
+- fees.view_reports
+- fees.export_reports
+- fees.reconcile
+
+### HR / Staff Manager
+
+- staff.view
+- staff.create
+- staff.edit
+- staff.archive
+- staff.view_profiles
+- staff.manage_departments
+- staff.manage_designations
+- staff.manage_assignments
+- staff_attendance.view
+- staff_attendance.create
+- staff_attendance.correct
+- staff_attendance.approve
+- leave.view
+- leave.create
+- leave.approve
+- leave.reject
+- recruitment.view
+- recruitment.manage
+- recruitment.hire
+- staff_documents.view
+- staff_documents.manage
+- hr_reports.view
+- hr_reports.export
+
+Follow the project's established naming conventions if they differ.
+
+These are suggested identifiers, not permission grants. Define each permission's allowed role and scope explicitly.
+
+Do not grant every suggested permission automatically.
+
+Use granular permissions for viewing, creating, editing, approving, exporting, archiving, and performing sensitive actions.
+
+Unknown roles and permissions must default to denied.
+
+A role should not gain access merely because a page exists in the navigation.
+
+Hiding a button is not sufficient: guard the route and underlying frontend action as well.
+
+Remember that production security must be enforced by a backend.
+
+---
+
+## 28. SEPARATION OF FINANCIAL AND HR RESPONSIBILITIES
+
+Preserve appropriate responsibility boundaries.
+
+The Accountant / Fee Manager manages authorized financial workflows.
+
+The HR / Staff Manager manages authorized employment, staff attendance, leave, and recruitment workflows.
+
+Do not give HR unrestricted access to student financial records.
+
+Do not give the Accountant unrestricted access to confidential employee documents, leave details, or HR records.
+
+Do not assume Admin should bypass every financial or HR approval requirement.
+
+Respect the existing centralized permission policy.
+
+Where approvals require another role, represent the approval state accurately.
+
+If the demo has no separate approval role or approval workflow, do not pretend that independent approval has occurred.
+
+---
+
+## 29. SHARED DATA MODEL AND RELATIONSHIPS
+
+Use one coherent source of truth for shared entities.
+
+### Financial records
+
+- Student.
+- Academic year.
+- Fee structure.
+- Fee obligation.
+- Fee category.
+- Concession.
+- Payment transaction.
+- Payment allocation.
+- Receipt.
+- Refund.
+- Adjustment.
+- Reversal.
+- Reconciliation record, if implemented.
+
+### HR records
+
+- Staff member.
+- Department.
+- Designation.
+- Employment type.
+- Teacher assignment.
+- Staff attendance record.
+- Leave type.
+- Leave request.
+- Leave balance, if supported.
+- Recruitment opening.
+- Candidate.
+- Interview.
+- Hiring decision.
+- Staff document reference.
+
+Use stable IDs for every relationship.
+
+Do not duplicate the same student, staff member, fee obligation, or payment transaction across different pages.
+
+Keep derived values calculated from source records rather than independently stored summary values where possible.
+
+Ensure that updates refresh related dashboards, lists, detail pages, and reports.
+
+Preserve historical records when a student changes class, a teacher changes assignment, a staff member leaves, or a fee structure is modified.
+
+Do not hard-delete financial transactions or historical records that must remain traceable.
+
+---
+
+## 30. PERSISTENCE AND DEMO DATA
+
+Use the existing state-management and persistence architecture.
+
+If browser storage is used:
+
+- Preserve existing storage keys.
+- Do not clear all storage when switching roles.
+- Preserve theme preferences.
+- Validate stored data before use.
+- Handle malformed or missing data gracefully.
+- Prevent duplicate records.
+- Maintain stable IDs.
+- Preserve unrelated role data.
+- Recalculate derived totals from source records.
+
+Use realistic, coherent demo records with relationships that can be verified.
+
+Ensure that fee obligations reference actual students and fee structures.
+
+Ensure that payments reference eligible obligations and have valid allocations.
+
+Ensure that receipts reference actual payment records.
+
+Ensure that staff attendance and leave requests reference existing staff members.
+
+Ensure that teacher assignments reference existing academic entities.
+
+Ensure that hired candidates are linked to the resulting staff records when applicable.
+
+Do not silently reset existing demo data.
+
+If schema changes require migration, implement a safe compatible migration or a fallback for older stored data.
+
+Do not store secrets or claim browser-local persistence is secure.
+
+Do not claim server-side or cross-device synchronization when it does not exist.
+
+---
+
+## 31. ACTIVITY HISTORY AND AUDIT-LIKE FEEDBACK
+
+Reuse the existing activity log where available.
+
+For meaningful financial and HR actions, record useful demo activity such as:
+
+- Fee structure created or updated.
+- Fee obligation assigned.
+- Payment recorded.
+- Receipt issued.
+- Concession submitted or approved.
+- Refund requested or completed.
+- Staff record created or edited.
+- Teacher assignment updated.
+- Staff attendance corrected.
+- Leave request approved or rejected.
+- Candidate hired.
+
+Include relevant record references, action descriptions, and timestamps where supported.
+
+Do not store unnecessary sensitive details in activity entries.
+
+Do not claim the frontend demo provides a tamper-proof audit log.
+
+Do not invent a successful activity event when the underlying operation failed.
+
+---
+
+## 32. USER EXPERIENCE AND FORM QUALITY
+
+Use structured forms with clear sections.
+
+For complex workflows, provide a step-by-step flow or well-organized form sections instead of one oversized page.
+
+For tables, provide appropriate:
+
+- Search.
+- Filters.
+- Sorting.
+- Pagination or sensible list handling.
+- Clear status labels.
+- Detail navigation.
+- Empty states.
+- Loading or error states where applicable.
+
+For create and edit actions:
+
+- Validate required fields.
+- Display actionable validation errors.
+- Preserve user-entered values when validation fails.
+- Prevent accidental duplicate submissions.
+- Show confirmation for sensitive actions.
+- Confirm destructive or irreversible actions.
+- Display success only after a successful state change.
+
+Do not use fake buttons.
+
+Do not use hardcoded metrics that are presented as live calculations.
+
+Do not hide important errors.
+
+Do not allow invalid relationships merely because a form field contains a string.
+
+Use actual IDs and valid relationships in saved records.
+
+---
+
+## 33. RESPONSIVE DESIGN
+
+Test both workspaces on desktop, tablet, and mobile.
+
+Desktop:
+
+- Comfortable navigation.
+- Readable tables.
+- Clear financial totals.
+- Detailed staff profiles.
+- Appropriate spacing.
+
+Tablet:
+
+- Collapsible sidebar or navigation drawer.
+- Adapted table layouts.
+- Accessible actions.
+
+Mobile:
+
+- No horizontal page overflow.
+- Readable financial values.
+- Forms that fit the viewport.
+- Tables adapted into scrollable tables or structured record cards.
+- Touch-friendly controls.
+- Functional drawers and dialogs.
+- Important actions reachable without excessive scrolling.
+
+Do not merely shrink the desktop layout.
+
+Maintain the existing theme and component design.
+
+---
+
+## 34. TESTING AND VERIFICATION
+
+After implementation, test the actual changes.
+
+### Role and navigation tests
+
+1. Open Accountant / Fee Manager from role selection.
+2. Open HR / Staff Manager from role selection.
+3. Verify all direct links and expandable folders.
+4. Verify active-page highlighting.
+5. Verify refresh and browser back/forward.
+6. Verify unauthorized routes are blocked.
+7. Verify theme switching and persistence.
+8. Verify existing role workspaces remain functional.
+
+### Financial tests
+
+9. Create and edit a fee structure.
+10. Verify historical obligations remain unchanged after a fee structure edit.
+11. Assign a fee structure to an eligible student.
+12. Attempt to assign a duplicate obligation and verify validation.
+13. Record a valid full payment.
+14. Record a valid partial payment.
+15. Attempt a negative or zero payment and verify rejection.
+16. Attempt an invalid allocation and verify rejection.
+17. Verify pending and failed payments do not affect completed collection totals.
+18. Verify payment allocations update the correct outstanding balance.
+19. Verify receipt details reference the actual payment.
+20. Verify concessions recalculate balances correctly.
+21. Verify refunds and reversals preserve the original transaction.
+22. Verify overdue balances use due dates and unpaid amounts.
+23. Verify report filters affect the data.
+24. Verify financial totals agree across the dashboard, student account, collections, and reports.
+
+### HR tests
+
+25. Create and edit a staff record.
+26. Attempt a duplicate employee ID and verify rejection.
+27. Verify staff records are shared with existing workspaces.
+28. Create and edit a department or designation.
+29. Create or edit a teacher assignment.
+30. Verify invalid academic relationships are rejected.
+31. Record staff attendance.
+32. Submit and review a leave request.
+33. Verify leave date validation and overlap handling.
+34. Verify rejected leave does not deduct leave balance.
+35. Move a candidate through recruitment stages.
+36. Convert a hired candidate into a staff record without duplication.
+37. Verify staff document expiry indicators where implemented.
+38. Verify HR reports match the underlying records.
+
+### Persistence and regression tests
+
+39. Refresh and verify supported records persist.
+40. Test missing or malformed stored data.
+41. Verify unrelated storage and theme preferences remain intact.
+42. Verify role permissions and data boundaries.
+43. Verify the Parent portal continues to display accurate shared fee information.
+44. Verify no Student or Super Admin role was added.
+45. Verify responsive behavior and form usability.
+
+Fix discovered defects where possible.
+
+Do not claim that tests passed unless they were actually executed. If automated testing is unavailable, perform whatever manual checks the environment supports and identify the remaining unverified cases.
+
+---
+
+## 35. IMPLEMENTATION ORDER
+
+Follow this sequence.
+
+Phase 1: Inspect existing architecture, models, routes, permissions, and shared components.
+
+Phase 2: Identify existing fee and HR functionality that can be reused.
+
+Phase 3: Implement the Accountant workspace shell and hybrid navigation.
+
+Phase 4: Implement the financial dashboard, fee structures, student fee records, and fee assignment.
+
+Phase 5: Implement payment recording, allocations, receipts, and outstanding balances.
+
+Phase 6: Implement concessions, supported refunds and adjustments, reconciliation, and financial reports.
+
+Phase 7: Implement the HR workspace shell and hybrid navigation.
+
+Phase 8: Implement the staff directory, profiles, registration, departments, designations, and teacher assignments.
+
+Phase 9: Implement staff attendance and leave management.
+
+Phase 10: Implement recruitment, hiring conversion, and staff documents where supported.
+
+Phase 11: Implement reports, shared data integration, permissions, persistence, and activity history.
+
+Phase 12: Test both workspaces, correct defects, and verify responsive layouts and regressions.
+
+Do not stop after building dashboards.
+
+Complete the operational workflows described above, prioritizing data integrity and working core functionality.
+
+If time or environment limitations prevent completing a secondary feature, implement the most reliable subset possible and explicitly identify the incomplete portion.
+
+---
+
+## 36. FINAL ACCEPTANCE CRITERIA
+
+Prompt 6 is ready for review only when:
+
+- Both workspaces are accessible through existing role selection.
+- Each workspace has appropriate, functional navigation.
+- Fee structures and student fee accounts use coherent shared data.
+- Fee assignment creates valid obligations without duplication.
+- Payments and allocations update balances correctly.
+- Receipts reference actual payment records.
+- Concessions and supported refunds follow defined rules.
+- Financial reports derive from source records.
+- HR uses the existing staff records rather than duplicating them.
+- Staff profiles and editing workflows work.
+- Teacher assignments reference valid academic records.
+- Staff attendance and leave workflows validate relationships and statuses.
+- Recruitment has a coherent candidate lifecycle.
+- Sensitive actions respect the existing permission model.
+- Relevant changes persist using the existing demo architecture.
+- The existing theme system and unrelated role experiences remain intact.
+- There are no misleading success messages, dead routes, or fabricated financial totals.
+- Known limitations and unverified tests are clearly reported.
+
+Do not sacrifice financial correctness or HR data integrity for visual polish.
+
+Do not rebuild the entire application.
+
+Do not start Prompt 7 automatically.
+
+---
+
+## 37. REQUIRED COMPLETION REPORT
+
+After implementing the changes, provide a factual report containing:
+
+1. Existing architecture and shared components reused.
+2. Accountant workspace pages implemented.
+3. HR workspace pages implemented.
+4. Financial data models and calculations implemented.
+5. Staff, attendance, leave, and recruitment workflows implemented.
+6. Permissions and approval rules implemented.
+7. Persistence and shared-role integrations completed.
+8. Tests actually executed and their results.
+9. Manual tests or automated tests still unverified.
+10. Known limitations and incomplete features.
+11. Any regressions discovered and how they were handled.
+
+Distinguish completed, partially completed, and unverified functionality.
+
+**Begin by inspecting the existing SCHLAR codebase. Then implement Prompt 6 within that codebase, preserving the established architecture and all working functionality from Prompts 1–5.**

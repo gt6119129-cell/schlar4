@@ -1,0 +1,979 @@
+# SCHLAR — PROMPT 5: COMPLETE PARENT WEB PORTAL AND MOBILE APP EXPERIENCE
+
+## 1. YOUR TASK
+
+Continue developing the existing SCHLAR School Management System frontend demo.
+
+Implement a complete, professional, interactive Parent Web Portal and Parent Mobile App Experience.
+
+This is Prompt 5 of the existing 12-prompt implementation roadmap.
+
+**Do not restart the project, replace the application architecture, or rebuild unrelated modules.** Inspect the existing codebase first, understand the implementation completed in Prompts 1–4, and extend the existing application.
+
+The goal is to make SCHLAR simple enough for a first-time parent to use while providing the depth and reliability expected from a professional school-management platform.
+
+This is a frontend demonstration. Build real interactions using the existing application state and data architecture. Do not claim to provide production authentication, backend authorization, real push notifications, live messaging infrastructure, payment processing, or cross-device synchronization unless these capabilities genuinely exist.
+
+---
+
+## 2. MANDATORY PRESERVATION RULES
+
+Before modifying anything, inspect the current implementation.
+
+Identify and reuse:
+
+- Existing application entry point and routing.
+- Existing role-selection interface.
+- Existing role-based permission configuration.
+- Existing parent and teacher platform-selection flow, if implemented.
+- Existing shared layout components.
+- Existing theme engine and all 12 theme palettes.
+- Existing color tokens and custom theme editor.
+- Existing data models and state-management approach.
+- Existing browser-storage and persistence implementation.
+- Existing notification, profile, breadcrumb, and navigation components.
+- Existing shared school data, demo records, and reusable form components.
+
+Do not create a competing theme engine, a second routing system, duplicate role definitions, duplicate student records, or incompatible storage keys.
+
+Do not break the existing Admin, Vice Principal, Teacher, Accountant / Fee Manager, HR / Staff Manager, Librarian, Transport Manager, Receptionist / Front Office, or Exam Coordinator experiences.
+
+Preserve all existing working functionality unrelated to this prompt.
+
+If a required integration does not exist, implement the smallest compatible extension and document the limitation.
+
+---
+
+## 3. ROLE AND PLATFORM REQUIREMENTS
+
+SCHLAR has exactly these ten roles:
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not add Student or Super Admin roles.
+
+The Parent role must have two distinct experiences:
+
+A. Parent Web Portal
+B. Parent Mobile App Experience
+
+Both experiences must be accessible through the existing role-selection flow.
+
+Expected flow:
+
+Role Selection → Parent → Select Web Portal or Mobile App Experience → Parent Workspace.
+
+If the existing project uses a different but functional route structure, preserve it and integrate the parent platform selection into that structure.
+
+Add a clear way to switch between Parent Web and Parent Mobile experiences, if appropriate to the existing demo.
+
+Add a way to return to role selection without clearing demo data, theme preferences, or unrelated application state.
+
+The mobile experience must be a responsive, phone-first web interface that behaves like an app. Do not describe it as a native Android or iOS application.
+
+Both experiences must use the currently selected SCHLAR theme.
+
+---
+
+## 4. PARENT EXPERIENCE DESIGN PRINCIPLES
+
+Design for real parents who may have limited technical knowledge.
+
+Prioritize:
+
+- Clear navigation.
+- Familiar labels.
+- Readable text.
+- Strong visual hierarchy.
+- Clear distinction between important and secondary information.
+- Short, understandable explanations.
+- Useful empty states.
+- Clear loading, success, and error feedback where applicable.
+- Accessible color contrast.
+- Keyboard accessibility on the web.
+- Touch-friendly controls on mobile.
+- Responsive layouts.
+- Sensible defaults.
+- Minimal unnecessary steps.
+- Detailed information available when needed without overcrowding the main dashboard.
+
+Do not make the product overly basic. Preserve meaningful capabilities while making common tasks straightforward.
+
+Do not place every feature into one enormous page.
+
+Use the existing SCHLAR design system. Do not arbitrarily replace the established color palette, typography, spacing, or component styling.
+
+The default Petrol & Copper palette must continue to work:
+
+- Primary: #164E55
+- Secondary: #287B7A
+- Accent: #C47D54
+- Background: #F5F0E7
+- Surface: #FFFFFF
+
+All twelve existing palettes must remain supported.
+
+---
+
+## 5. PARENT DATA ACCESS AND RELATIONSHIPS
+
+A parent must see only the child or children linked to that parent's demo account.
+
+Use the existing shared school data model wherever possible.
+
+Represent relationships using stable identifiers:
+
+- Parent ID.
+- Student ID.
+- Parent–student relationship.
+- Class and section IDs.
+- Academic year and term IDs.
+- Attendance records.
+- Timetable entries.
+- Assignment records.
+- Examination and result records.
+- Fee records and payment history.
+- Announcement records.
+- Message or enquiry records, if implemented.
+
+Never associate records merely by matching display names.
+
+If a parent has multiple linked children, provide a child selector that switches the context of the portal.
+
+When switching children, update every relevant section consistently, including attendance, timetable, assignments, results, fee information, and child-specific notices.
+
+Never show one child's records under another child's profile.
+
+If the current demo does not contain parent–student relationships, create a small, coherent set of linked demo records without duplicating existing students.
+
+Provide realistic demonstration data with varied dates and statuses. Derive displayed totals and summaries from those records.
+
+Do not fabricate live information or claim that demo data came from a real school.
+
+If there are no linked children, show a helpful empty state explaining that no student is linked to the parent demo account. Do not silently expose every student in the database.
+
+The frontend's data scoping is for demonstration only. Production deployments must enforce these restrictions on the server.
+
+---
+
+## 6. PARENT WEB PORTAL — NAVIGATION
+
+Build a dedicated Parent Web Portal using the existing shared application shell where appropriate.
+
+Use a clean sidebar, top bar, page title, contextual actions, and responsive content area.
+
+The parent navigation should contain:
+
+1. Dashboard
+2. My Children
+3. Attendance
+4. Timetable
+5. Homework & Assignments
+6. Examinations & Results
+7. Fee Information
+8. Announcements
+9. Messages & Enquiries
+10. Profile & Settings
+
+Organize the navigation consistently with the existing application. Keep the primary parent destinations easy to reach.
+
+Do not create unnecessary deep navigation or duplicate routes.
+
+Every navigation item must open a real, implemented page.
+
+The active navigation item must be highlighted. Preserve navigation state across refreshes and browser back/forward where supported by the existing routing system.
+
+Include:
+
+- Page titles.
+- Breadcrumbs where appropriate.
+- Search or filters where useful.
+- Clear action buttons.
+- Contextual empty states.
+- Responsive behavior.
+- A profile menu.
+- A theme shortcut compatible with the existing theme editor.
+- Notifications or notification indicators if the shared notification system exists.
+
+Do not create decorative controls that do nothing.
+
+---
+
+## 7. PARENT DASHBOARD
+
+Create a useful parent dashboard focused on the child's current school life.
+
+The dashboard should provide a concise overview of:
+
+- Selected child and current class/section.
+- Today's timetable or next scheduled class activity, where data exists.
+- Recent attendance summary.
+- Pending homework and approaching deadlines.
+- Upcoming examinations.
+- Recent examination results, when available.
+- Outstanding fee balance and next due date, when available.
+- Recent school announcements.
+- Important notifications.
+- Quick links to common tasks.
+
+Do not display every metric as a large card.
+
+Use a balanced layout with clear priorities. Place urgent or time-sensitive information first and less important information lower on the page.
+
+Show dates and statuses clearly.
+
+Examples of useful statuses include:
+
+- Due soon.
+- Overdue.
+- Submitted.
+- Evaluated.
+- Published.
+- Paid.
+- Partially paid.
+- Pending.
+
+Use these statuses only when supported by the underlying records.
+
+Dashboard values must be calculated from the shared demo data.
+
+For example:
+
+- Attendance percentage must use the defined attendance records and documented denominator.
+- Pending assignments must be derived from assignment status and due dates.
+- Outstanding fees must use fee obligations minus valid recorded payments and applicable concessions.
+- Upcoming examinations must use actual scheduled examination dates.
+
+Do not hardcode summary figures that appear to represent live data.
+
+If data is unavailable, show an appropriate empty state instead of an invented value.
+
+---
+
+## 8. MY CHILDREN
+
+Create a dedicated My Children page.
+
+Support:
+
+- A list of linked children.
+- A child summary with name, student ID, class, section, and academic year.
+- Opening a detailed child profile.
+- Switching the currently selected child.
+- Viewing relevant academic and administrative information.
+- Clear empty states.
+
+The child detail page should have logically separated sections or tabs, such as:
+
+- Overview.
+- Academic Information.
+- Attendance.
+- Timetable.
+- Assignments.
+- Examinations & Results.
+- Fee Summary.
+
+Use existing student records as the source of truth.
+
+Do not expose sensitive internal staff notes, private HR records, internal administrative discussions, or information about unrelated students.
+
+Do not permit parents to edit official student identity, enrollment, marks, attendance, or fee records directly.
+
+Where a parent needs a correction, provide an appropriate enquiry or correction-request workflow if supported by the application.
+
+---
+
+## 9. ATTENDANCE
+
+Build a dedicated Attendance page.
+
+Include:
+
+- Attendance summary for the selected child.
+- Date range filters.
+- Monthly or term-based attendance history.
+- Present and absent counts.
+- Attendance percentage.
+- Date-wise attendance records.
+- Class or session details where supported.
+- A clear indication of missing or unrecorded attendance.
+
+Use the existing attendance model and status definitions.
+
+If the school records attendance only by day, do not invent period-level attendance.
+
+If period-level attendance exists, present it accurately.
+
+Use readable status indicators, with text labels as well as color.
+
+Parents may view attendance but must not directly change official attendance records.
+
+If attendance appears incorrect, allow the parent to submit an enquiry or correction request where the existing architecture supports it. Such a request must not silently change the official attendance record.
+
+Keep the page useful on both desktop and mobile.
+
+---
+
+## 10. TIMETABLE
+
+Create a dedicated Timetable page.
+
+Display the selected child's timetable using existing timetable records.
+
+Provide:
+
+- Weekly timetable.
+- Day selector on smaller screens.
+- Subject.
+- Start and end times.
+- Teacher name where the relevant data is available.
+- Room or location where supported.
+- Break periods where configured.
+- Clear indication of unassigned or unavailable periods.
+
+Use the same timetable source of truth as the Admin and Teacher workspaces.
+
+If an Admin updates a timetable in the shared demo state, the Parent view should reflect the change when both views use the same underlying state.
+
+Do not independently hardcode a different parent timetable.
+
+Do not invent teacher assignments, room numbers, or class times.
+
+If no timetable is configured, show a helpful empty state.
+
+Parents must not be able to edit official timetable entries.
+
+---
+
+## 11. HOMEWORK AND ASSIGNMENTS
+
+Create a dedicated Homework & Assignments section.
+
+Include:
+
+- Assignment title.
+- Subject.
+- Teacher, if available.
+- Description or instructions.
+- Assigned date.
+- Due date.
+- Status.
+- Submission details, if supported.
+- Feedback or marks, if available and permitted.
+
+Provide useful filters:
+
+- All.
+- Pending.
+- Due soon.
+- Overdue.
+- Submitted.
+- Evaluated.
+
+Only show statuses supported by the actual data model.
+
+### Assignment details
+
+Clicking an assignment should open a dedicated detail view or a well-structured detail panel.
+
+Show the full instructions, dates, attachments or links where implemented, submission status, and teacher feedback where available.
+
+### Parent interaction
+
+Parents can view assignments and relevant feedback.
+
+Do not automatically treat a parent's action as a student's submission.
+
+If the existing Teacher workflow supports submissions and the demo data model can represent them, expose submission information accurately.
+
+If submission functionality does not exist, implement only the parent-facing viewing experience and clearly identify submission functionality as outside this prompt's scope.
+
+Do not create fake file uploads or claim that an attachment was uploaded when it was not.
+
+---
+
+## 12. EXAMINATIONS AND RESULTS
+
+Create a dedicated Examinations & Results section.
+
+Separate upcoming examinations from completed examinations.
+
+Include, where records exist:
+
+- Examination name.
+- Examination type.
+- Subject.
+- Examination date.
+- Start time.
+- Duration.
+- Examination status.
+- Published results.
+- Marks obtained.
+- Maximum marks.
+- Grade.
+- Teacher remarks or report comments where permitted.
+
+Provide:
+
+- Examination calendar or list.
+- Examination detail page.
+- Published results list.
+- Subject-wise result details.
+- Overall result summary where meaningful.
+- Academic term or examination filters.
+
+Do not expose unpublished results to parents.
+
+Do not infer missing marks, grades, or ranks.
+
+Do not display results as published merely because marks have been entered.
+
+Respect the existing result-publication workflow and permissions.
+
+If no results have been published, explain that results are not yet available.
+
+Do not invent ranking calculations or school-wide comparisons unless the underlying data and permission model support them.
+
+---
+
+## 13. FEE INFORMATION
+
+Create a dedicated Fee Information section.
+
+This section is read-only for parents unless the existing application already implements an explicitly authorized parent payment workflow.
+
+Include:
+
+- Fee summary for the selected child.
+- Applicable fee categories.
+- Total assessed amount.
+- Applicable concessions.
+- Amount paid.
+- Outstanding balance.
+- Due dates.
+- Payment history.
+- Receipt history.
+- Overdue items, if any.
+
+Separate fee obligations from actual payments.
+
+Use the existing fee and payment records if they exist.
+
+Where a concession is applicable, calculate the balance using the actual concession records and the established fee model. Avoid double-counting concessions.
+
+Ensure:
+
+Outstanding balance = applicable assessed obligations − valid payments, with adjustments handled according to the existing fee model.
+
+Do not count pending or failed payments as completed payments.
+
+Do not expose another student's financial records.
+
+### Receipts
+
+Allow parents to open a receipt detail view for existing receipts.
+
+If receipt printing or PDF export is genuinely implemented, provide that action. Otherwise, do not display a misleading download button.
+
+Do not fabricate transaction IDs, payment gateway confirmations, or payment receipts.
+
+### Payments
+
+Do not integrate or pretend to integrate a payment gateway as part of this prompt.
+
+If the existing demo already includes a working simulated payment workflow, preserve it and accurately label it as a demo.
+
+Otherwise, provide fee information and payment history only.
+
+Parents must not edit fee structures, concessions, payments, refunds, or official accounting records.
+
+---
+
+## 14. ANNOUNCEMENTS AND NOTIFICATIONS
+
+Create a dedicated Announcements page.
+
+Display school announcements with:
+
+- Title.
+- Message.
+- Publication date.
+- Category.
+- Relevant audience.
+- Attachment or link, if genuinely supported.
+- Read/unread status, if the notification model supports it.
+
+Provide useful filtering or search when appropriate.
+
+Only show announcements intended for the parent audience or the selected child's applicable audience.
+
+Do not expose internal administrative announcements or staff-only communications.
+
+### Notifications
+
+Integrate with the existing shared notification system.
+
+If read/unread state exists, allow the parent to mark notifications as read and update the underlying demo state.
+
+If a shared notification system does not exist, implement a minimal compatible local demo mechanism rather than a competing notification architecture.
+
+Do not claim that real push notifications, SMS, or emails have been delivered.
+
+---
+
+## 15. MESSAGES AND ENQUIRIES
+
+Create a parent-facing Messages & Enquiries section.
+
+The purpose is to demonstrate structured communication with the school.
+
+Include, where appropriate:
+
+- Conversation or enquiry list.
+- Subject.
+- Category.
+- Related child.
+- Date.
+- Status.
+- Message history.
+- New enquiry form.
+- Enquiry detail page.
+- Reply or follow-up within the demo.
+- Read/unread indicators if supported.
+
+Possible categories include:
+
+- Attendance.
+- Homework.
+- Examination.
+- Fee enquiry.
+- Student information correction.
+- Transport.
+- General enquiry.
+
+Validate required fields and prevent empty submissions.
+
+Provide a clear success or error message after an action.
+
+If the demo uses local state, store conversations using the existing persistence approach.
+
+Do not claim that a real teacher or administrator received a message unless the shared application actually routes that message to the relevant workspace.
+
+If cross-role messaging is implemented, connect the same conversation records to the appropriate authorized recipient's view.
+
+Do not fabricate delivery receipts or real-time messaging indicators.
+
+Do not expose private conversations belonging to other parents.
+
+---
+
+## 16. PROFILE AND SETTINGS
+
+Create a Profile & Settings page.
+
+Show relevant parent account details using existing demo records.
+
+Include editable fields only where appropriate, such as:
+
+- Display name, if supported.
+- Preferred contact information, if supported.
+- Preferred language, if supported.
+- Notification preferences, if supported.
+- Theme preference through the existing theme system.
+
+Validate changes and provide feedback.
+
+Do not allow parents to change their role, linked student IDs, official student records, account permissions, or other protected fields.
+
+If profile editing is unsupported by the current data model, implement only safe editable preferences and document the limitation.
+
+Do not request passwords, payment card details, or unnecessary sensitive information.
+
+---
+
+## 17. PARENT MOBILE APP EXPERIENCE
+
+Implement a dedicated mobile-first experience for the same Parent role.
+
+This is a responsive web interface simulating an app-like experience, not a native mobile application.
+
+Reuse the same underlying parent data, business rules, permissions, and state-management architecture as the Parent Web Portal.
+
+Do not duplicate the entire parent data model just to create a separate mobile interface.
+
+### Mobile navigation
+
+Use a compact bottom navigation bar for the most important destinations:
+
+- Home.
+- Children.
+- Attendance.
+- Assignments.
+- More.
+
+The More destination should open a usable navigation sheet, drawer, or menu containing:
+
+- Timetable.
+- Examinations & Results.
+- Fee Information.
+- Announcements.
+- Messages & Enquiries.
+- Profile & Settings.
+
+The bottom navigation must not overlap content or form controls.
+
+Include clear active states and accessible labels.
+
+Ensure that all destinations remain reachable.
+
+### Mobile dashboard
+
+Prioritize:
+
+1. Selected child.
+2. Important alerts.
+3. Today's timetable or next relevant activity.
+4. Attendance summary.
+5. Pending assignments.
+6. Upcoming examinations.
+7. Fee reminders, where applicable.
+8. Recent announcements.
+
+Use compact summaries that open detailed pages.
+
+Do not simply shrink the desktop layout to fit a phone.
+
+### Mobile interaction requirements
+
+- Touch-friendly controls.
+- Appropriate spacing.
+- Readable text.
+- Responsive forms.
+- Scrollable content.
+- No accidental horizontal overflow.
+- Safe-area-aware bottom navigation where applicable.
+- Clear back navigation.
+- Consistent child selection.
+- Usable date filters.
+- Accessible modal and drawer behavior.
+- Clear validation and confirmation messages.
+
+The mobile experience must use the same theme selection as the rest of SCHLAR.
+
+If web and mobile share the same browser state, keep them synchronized through the existing application state. Do not promise cross-device synchronization when no backend exists.
+
+---
+
+## 18. RESPONSIVE WEB DESIGN
+
+The Parent Web Portal must also work on smaller screens.
+
+On desktop:
+
+- Use the existing sidebar-based application shell.
+- Present detailed tables and information with appropriate spacing.
+- Use multiple columns only where useful.
+- Keep related information together.
+
+On tablets:
+
+- Allow the sidebar to collapse or become a drawer.
+- Reduce unnecessary columns.
+- Keep important actions visible.
+
+On phones:
+
+- Use a compact layout.
+- Replace oversized tables with readable stacked rows or cards where appropriate.
+- Keep filters usable.
+- Ensure forms fit the viewport.
+- Avoid horizontal page overflow.
+- Keep primary actions reachable.
+
+Do not compromise the desktop experience merely to make the mobile version look good.
+
+---
+
+## 19. SHARED DATA INTEGRATION
+
+Integrate the Parent Web Portal and Mobile App with the existing shared demo data.
+
+Where supported, use the same records as the following workspaces:
+
+- Admin: student records, class assignments, school calendar, and timetable.
+- Teacher: assignments, attendance, and published academic information.
+- Accountant / Fee Manager: assessed fees, concessions, payments, and receipts.
+- Exam Coordinator: examinations, marks workflow, and publication status.
+- Receptionist / Front Office: parent enquiries and relevant admissions communication.
+
+Do not implement unrelated modules from those roles again.
+
+Do not bypass existing permissions simply to display more data to parents.
+
+Ensure that changes made in one workspace are reflected in the Parent view when the underlying state is shared.
+
+If separate role workspaces do not currently share the required data, identify the missing integration and make a compatible extension without replacing the application architecture.
+
+Use stable IDs and consistent record relationships.
+
+Keep historical records accurate.
+
+Do not allow a parent-facing update to silently modify an official record that belongs to another role's workflow.
+
+---
+
+## 20. CRUD, VALIDATION, AND INTERACTION QUALITY
+
+Every implemented control must perform its stated action.
+
+Examples:
+
+- Navigation opens the intended page.
+- Child selection updates the relevant information.
+- Search and filters affect the displayed records.
+- Assignment filters work.
+- Attendance date filters work.
+- Examination filters work.
+- Announcement filters work.
+- Enquiry forms validate their input.
+- Enquiries persist according to the existing demo architecture.
+- Profile preferences save where implemented.
+- Notification read status updates where supported.
+- Back navigation works.
+- Empty states appear when no data matches the selected filters.
+
+Use existing shared components where possible.
+
+Implement appropriate:
+
+- Required-field validation.
+- Date validation.
+- Numeric formatting.
+- Safe handling of missing values.
+- Duplicate prevention where relevant.
+- Confirmation before destructive actions, if any.
+- Success and error feedback.
+- Empty states.
+- Loading and error states where applicable.
+
+Never show a success message before the operation succeeds.
+
+Never show a fake upload, payment, message delivery, result publication, or synchronization confirmation.
+
+---
+
+## 21. PERMISSIONS AND PRIVACY
+
+Follow the existing centralized permission configuration.
+
+Create or reuse granular permissions for parent-facing capabilities where necessary, such as:
+
+- parent.dashboard.view
+- parent.children.view
+- parent.attendance.view
+- parent.timetable.view
+- parent.assignments.view
+- parent.results.view
+- parent.fees.view
+- parent.announcements.view
+- parent.messages.view
+- parent.messages.create
+- parent.profile.view
+- parent.profile.edit
+
+Use the project's established permission naming conventions if they differ.
+
+Do not scatter inconsistent role checks across individual components.
+
+Enforce parent data scope in the frontend demo:
+
+- A parent can access only linked children.
+- A parent can see only permitted records for those children.
+- Unpublished results remain hidden.
+- Staff-only and internal administrative data remain hidden.
+- Protected school records cannot be edited by parents.
+- Unknown roles and permissions remain denied by default.
+
+Do not automatically grant access because a route is reachable.
+
+Do not change the permissions of existing roles without a clear integration requirement.
+
+Document that frontend permission checks are not a substitute for production backend authorization.
+
+---
+
+## 22. PERSISTENCE AND STATE MANAGEMENT
+
+Use the existing state and persistence architecture.
+
+If the application uses browser storage:
+
+- Preserve existing storage keys and data.
+- Do not clear all local storage when switching roles.
+- Validate stored records before using them.
+- Handle missing or malformed data gracefully.
+- Preserve theme preferences.
+- Preserve unrelated role data.
+- Use stable identifiers.
+- Avoid duplicate enquiries or records after repeated actions.
+- Keep derived values calculated from the underlying records.
+
+Persist supported parent preferences and demo enquiries where appropriate.
+
+Do not store secrets or claim browser storage is secure.
+
+If data is browser-local, document that it does not provide server-side persistence or cross-device synchronization.
+
+---
+
+## 23. TESTING AND ACCEPTANCE CRITERIA
+
+After implementation, test the actual changes.
+
+### Role and navigation
+
+1. Select Parent from role selection.
+2. Open the Parent Web Portal.
+3. Return to role selection and open the Parent Mobile App Experience.
+4. Verify all parent navigation destinations.
+5. Verify active-page indicators and browser navigation.
+6. Verify that switching experiences does not erase data or theme preferences.
+
+### Child relationships
+
+7. Open a parent account with one linked child.
+8. Open a parent account with multiple linked children, if supported by the demo data.
+9. Switch between children.
+10. Verify that all child-specific sections update consistently.
+11. Confirm that unlinked students cannot be accessed through the parent interface.
+
+### Academic records
+
+12. Verify attendance summaries against the underlying records.
+13. Verify timetable entries against shared timetable data.
+14. Verify assignment filters and due dates.
+15. Verify that unpublished examination results are hidden.
+16. Verify that published results display accurate marks and maximum marks.
+
+### Fees and communications
+
+17. Verify fee balances against assessed obligations, concessions, and completed payments.
+18. Confirm that pending or failed payments are not counted as completed.
+19. Verify receipt details against existing receipt records.
+20. Create and validate an enquiry.
+21. Verify announcement visibility and filtering.
+22. Verify notification state changes where supported.
+
+### Profile and persistence
+
+23. Verify supported profile preferences.
+24. Refresh the page and confirm that supported changes persist.
+25. Test missing or malformed stored data.
+26. Confirm that existing themes and unrelated role data remain intact.
+
+### Responsive behavior
+
+27. Test desktop, tablet, and phone viewport sizes.
+28. Check bottom navigation and drawers.
+29. Check for horizontal overflow.
+30. Verify form usability and readable tables on smaller screens.
+
+### Regression and permissions
+
+31. Verify that the other nine roles still work.
+32. Verify that the Teacher workspace remains functional.
+33. Verify that existing shared navigation and theme controls still work.
+34. Verify that parent permissions cannot edit protected school records.
+35. Confirm that no new Student or Super Admin role has been added.
+
+Fix any issues discovered during testing where possible.
+
+Do not claim that a test passed unless it was actually executed. If Google AI Studio does not provide a way to execute a test, report it as unverified and explain how it can be checked manually.
+
+---
+
+## 24. IMPLEMENTATION ORDER
+
+Follow this order:
+
+Phase 1: Inspect the existing architecture and identify reusable components.
+
+Phase 2: Verify parent role selection, platform routing, permissions, and data relationships.
+
+Phase 3: Implement the Parent Web Portal shell and navigation.
+
+Phase 4: Implement the parent dashboard and child selection.
+
+Phase 5: Implement attendance, timetable, assignments, examinations, and results.
+
+Phase 6: Implement fee information, announcements, and messages/enquiries.
+
+Phase 7: Implement profile and settings.
+
+Phase 8: Implement the mobile-first Parent App Experience using the shared data and business rules.
+
+Phase 9: Integrate shared data, validation, permissions, and persistence.
+
+Phase 10: Test the parent workflows, responsive layouts, and regressions.
+
+Do not stop after creating the dashboard or navigation shell. Complete the specified parent-facing pages and workflows.
+
+---
+
+## 25. FINAL QUALITY STANDARD
+
+The completed result should feel like a professional school-parent portal, not a collection of static mockup screens.
+
+It must have:
+
+- Two distinct parent experiences.
+- A consistent SCHLAR design system.
+- Functional navigation.
+- Coherent shared data.
+- Linked-child scoping.
+- Detailed academic information.
+- Readable fee summaries.
+- Useful communication workflows.
+- Appropriate validation.
+- Accurate statuses and calculations.
+- Responsive layouts.
+- Persistent demo state where supported.
+- No fake success actions.
+- No unauthorized data exposure through the parent interface.
+- No regressions to existing role workspaces.
+
+Do not weaken the product by removing meaningful capabilities for the sake of simplicity.
+
+Do not rebuild the whole application to implement this prompt.
+
+Do not start Prompt 6 automatically.
+
+---
+
+## 26. REQUIRED COMPLETION REPORT
+
+After making the changes, provide a concise but specific report containing:
+
+1. Existing architecture and components reused.
+2. Parent Web Portal pages implemented.
+3. Parent Mobile App Experience pages implemented.
+4. Shared data relationships added or reused.
+5. Parent permissions and data-scope rules implemented.
+6. Forms, filters, navigation, and persistence implemented.
+7. Tests actually executed and their results.
+8. Manual tests that remain unverified.
+9. Known limitations and incomplete features.
+10. Any existing functionality that required modification.
+
+Clearly distinguish completed work from partial work and unverified work.
+
+**Start by inspecting the existing SCHLAR project, then implement Prompt 5 within the existing codebase. Do not provide only a plan or a visual mockup.**

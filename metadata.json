@@ -1,0 +1,6 @@
+{
+  "name": "SCHLAR - School Management Platform",
+  "description": "Professional school operations, staff coordination, and academic administration platform with 10 role workspaces and 12-palette theme engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

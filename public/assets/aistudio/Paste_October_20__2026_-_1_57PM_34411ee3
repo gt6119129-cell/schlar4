@@ -1,0 +1,776 @@
+# SCHLAR — PROMPT 4: COMPLETE VICE PRINCIPAL & TEACHER WORKSPACES
+
+## PROJECT CONTEXT
+
+Continue developing the existing SCHLAR School Management System in this same Google AI Studio project.
+
+Prompts 1–3 have been completed. Prompt 1 established the brand and theme system. Prompt 2 established the application architecture, role selection, navigation, and permission system. Prompt 3 established the Admin workspace and core school operations.
+
+Your task is to implement **Prompt 4: the complete Vice Principal and Teacher workspaces**.
+
+This is a continuation of an existing application, not a new project. First inspect the current codebase, routes, components, data models, theme system, permissions, and completed Admin functionality. Reuse the existing architecture and extend it carefully.
+
+## 1. NON-NEGOTIABLE REQUIREMENTS
+
+1. Preserve all working functionality from Prompts 1–3.
+2. Do not redesign or replace the existing Admin workspace.
+3. Do not introduce new roles.
+4. Keep Vice Principal and Teacher as separate roles with different permissions.
+5. Use the existing SCHLAR design system and theme engine, including all 12 palettes and custom theme settings.
+6. Use existing navigation and routing patterns where possible.
+7. Implement real interactive frontend workflows, not static screenshots or decorative mockups.
+8. Do not make every sidebar item a folder. Keep important destinations direct and group related subpages into expandable folders where appropriate.
+9. Do not place every feature into one oversized page. Use dedicated list, detail, creation, editing, and report pages.
+10. Use shared school data consistently. A change made through one authorized workflow should be reflected in other relevant views.
+11. Do not claim real authentication, server synchronization, notifications, or backend security if these are not implemented.
+12. Do not report tests as passed unless they were actually run.
+
+Core design principle:
+
+**Make every screen simple enough for a first-time user, but make the system powerful enough for a real school. Simplify navigation and workflows, not functionality or permissions.**
+
+---
+
+# PART A — VICE PRINCIPAL WORKSPACE
+
+## 2. PURPOSE OF THE VICE PRINCIPAL ROLE
+
+The Vice Principal supports academic operations, monitors school performance, coordinates teachers, reviews attendance, tracks student progress, and handles delegated academic approvals.
+
+The Vice Principal must not simply see a copy of the Admin dashboard.
+
+The Vice Principal workspace should emphasize:
+- Academic monitoring
+- Class and section performance
+- Teacher coordination
+- Timetable monitoring
+- Attendance oversight
+- Examination progress
+- Student progress and intervention
+- Academic reports
+- Authorized academic approvals
+
+The Vice Principal must not automatically receive unrestricted access to HR records, detailed financial operations, school-wide configuration, or sensitive administrative functions.
+
+## 3. VICE PRINCIPAL SIDEBAR
+
+Create the following role-specific navigation using the existing sidebar architecture.
+
+### Direct links
+- Dashboard
+- Academic Overview
+- Timetable
+- Attendance Monitoring
+- Student Progress
+- Academic Reports
+
+### Expandable folders
+
+**Academic Management**
+- Classes & Sections
+- Subject Coverage
+- Syllabus Progress
+- Academic Calendar
+- Academic Activities
+
+**Teacher Coordination**
+- Teacher Directory
+- Teacher Workload
+- Class & Subject Assignments
+- Assignment Completion Monitoring
+- Teacher Attendance Summary, if authorized data exists
+
+**Examinations**
+- Examination Overview
+- Examination Schedule
+- Assessment Progress
+- Marks Entry Monitoring
+- Result Review
+- Result Publication Status
+
+**Student Support**
+- Students Requiring Attention
+- Attendance Concerns
+- Academic Performance Concerns
+- Intervention Follow-ups
+
+**Approvals**
+- Pending Academic Approvals
+- Completed Approvals
+- Rejected or Returned Requests
+
+**Reports**
+- Class Performance
+- Subject Performance
+- Attendance Summary
+- Teacher Workload Summary
+- Examination Performance
+- Student Progress Reports
+
+Only display modules and actions the role is authorized to access. Avoid duplicating the same page under multiple navigation items unless a clear contextual shortcut is necessary.
+
+## 4. VICE PRINCIPAL DASHBOARD
+
+Create a polished, functional dashboard with:
+- Total classes and sections within the authorized scope
+- Teacher count within the authorized scope
+- Today's timetable summary
+- Attendance summary based on available records
+- Upcoming examinations
+- Syllabus completion indicators when data exists
+- Pending approvals
+- Classes requiring attention
+- Students flagged for academic support
+- Recent academic activity
+- Quick actions
+
+Dashboard metrics must derive from the current demo data, not arbitrary hardcoded values.
+
+Provide useful empty states when data has not yet been entered. Never show misleading success rates or performance figures without supporting records.
+
+## 5. ACADEMIC MONITORING
+
+Implement separate pages for classes, subjects, syllabus progress, and academic activities.
+
+### Classes & Sections
+- Search and filter authorized classes and sections.
+- Open class and section detail pages.
+- View class teachers, assigned subjects, enrolled students, timetable, and available performance summaries.
+- Link to the existing Admin-managed class and section records.
+- Do not allow unauthorized creation or deletion of school structures.
+
+### Subject Coverage
+- Display subjects assigned to classes and teachers.
+- Show available syllabus coverage.
+- Highlight missing assignments or incomplete configuration.
+- Link to the relevant class, subject, or teacher.
+
+### Syllabus Progress
+- Represent syllabus progress using topics or chapters only when the data model supports them.
+- Support authorized progress updates and review workflows.
+- Record the subject, class, teacher, topic, completion status, update date, and notes where applicable.
+- Distinguish teacher-reported progress from Vice Principal-reviewed progress.
+- Do not fabricate completion data.
+
+### Academic Activities
+- Display school academic activities and deadlines.
+- Allow authorized creation or editing only if the existing permission model supports these actions.
+- Keep activities linked to the correct academic year and applicable classes.
+
+## 6. TEACHER COORDINATION
+
+Build a Teacher Directory with search, filters, and individual teacher detail pages.
+
+The Vice Principal should be able to inspect authorized information such as:
+- Teacher name and staff ID
+- Department and designation
+- Assigned subjects
+- Assigned classes and sections
+- Timetable and workload
+- Assignment completion summaries
+- Available attendance summaries
+- Academic progress updates
+- Relevant authorized notes
+
+Do not expose unnecessary personal documents, private contact details, salary information, or sensitive HR records.
+
+### Teacher workload
+
+Create a dedicated workload page showing:
+- Teaching periods per week
+- Assigned classes and subjects
+- Period distribution by day
+- Unassigned classes or subjects, if detectable
+- Potential scheduling conflicts
+- Workload totals based on actual timetable entries
+
+Link conflicts to the relevant timetable or assignment page.
+
+Do not assume that a teacher with more periods is necessarily performing better or worse.
+
+## 7. TIMETABLE MONITORING
+
+Use the same canonical timetable data created in the Admin workspace.
+
+Provide:
+- Timetable overview
+- Class timetable view
+- Teacher timetable view
+- Daily and weekly navigation
+- Filter by academic year, class, section, subject, and teacher where authorized
+- Clear period times and break periods
+- Identification of empty periods and unresolved conflicts
+- Print-friendly timetable presentation
+
+The Vice Principal should have read-only timetable access by default. Allow editing or approval only if the existing centralized permission system explicitly grants it.
+
+Do not create a second independent timetable dataset.
+
+## 8. ATTENDANCE MONITORING
+
+Create separate pages for:
+- Attendance overview
+- Class-wise attendance
+- Daily attendance summary
+- Attendance trends
+- Attendance concerns
+- Attendance reports
+
+Use existing attendance records wherever available.
+
+Allow the Vice Principal to:
+- Inspect authorized class and school-level summaries
+- Identify missing attendance submissions
+- Review repeated absence patterns
+- Open relevant student or class details
+- Initiate an authorized correction or review workflow where supported
+
+Do not let the Vice Principal silently overwrite teacher attendance entries. Corrections must use a controlled workflow, capture the reason, and retain an audit-style history in the demo.
+
+Do not generate attendance percentages from nonexistent records.
+
+## 9. EXAMINATION MONITORING
+
+Provide dedicated pages for:
+- Examination overview
+- Examination schedule
+- Assessment completion
+- Marks entry monitoring
+- Result review
+- Result publication status
+
+Display examination data from the existing examination and marks records if available.
+
+Support:
+- Upcoming and completed examinations
+- Missing marks entries
+- Classes with incomplete assessments
+- Marks awaiting review
+- Results awaiting authorized publication
+- Links to the relevant examination, class, or teacher
+
+The Vice Principal must not automatically publish official results. Require the appropriate explicit permission and workflow status.
+
+If the Exam Coordinator module has not yet been implemented, create compatible interfaces and data contracts without pretending that a complete examination engine already exists.
+
+## 10. STUDENT PROGRESS AND INTERVENTION
+
+Create dedicated pages for:
+- Student progress overview
+- Academic performance concerns
+- Attendance concerns
+- Students requiring attention
+- Intervention follow-ups
+
+A student detail page may show authorized:
+- Student identity and enrollment details
+- Class and section
+- Attendance summary
+- Examination and marks history
+- Teacher feedback, if supported
+- Recorded academic concerns
+- Intervention actions and follow-up dates
+
+Support searching and filtering by class, section, subject, concern category, and follow-up status where applicable.
+
+Allow authorized staff to record an intervention with:
+- Student
+- Concern category
+- Description
+- Action taken
+- Responsible staff member
+- Follow-up date
+- Status
+- Review notes
+
+Keep intervention information appropriately scoped. Do not expose private notes to unrelated roles or parents by default.
+
+## 11. ACADEMIC APPROVALS
+
+Create an approval center with:
+- Pending approvals
+- Approval detail view
+- Approve action
+- Reject action with a required reason
+- Return for correction with a required explanation
+- Approval history
+- Current status and timestamps
+
+Only implement approval types that are defined in the application or clearly supported by existing workflows.
+
+Each approval must validate the current status before changing it. Prevent duplicate approval actions and unauthorized decisions.
+
+If no approval requests exist, show a useful empty state with guidance rather than fake requests.
+
+---
+
+# PART B — TEACHER WORKSPACE
+
+## 12. PURPOSE OF THE TEACHER ROLE
+
+The Teacher workspace is designed for daily classroom work.
+
+It must be fast, practical, and focused on the teacher's assigned classes, subjects, students, timetable, attendance, assignments, assessments, and communication.
+
+Teachers must not automatically access all students, all classes, school-wide sensitive records, HR administration, financial management, or unrestricted configuration.
+
+Teacher permissions must be based on assigned classes, sections, subjects, and explicitly authorized actions.
+
+## 13. TEACHER SIDEBAR
+
+### Direct links
+- Dashboard
+- My Classes
+- My Timetable
+- Attendance
+- Assignments
+- Marks & Results
+
+### Expandable folders
+
+**Teaching**
+- Class Details
+- Subject Materials
+- Lesson Plans, if supported
+- Syllabus Progress
+- Teaching Resources
+
+**Student Progress**
+- Student Directory within Assigned Classes
+- Student Performance
+- Attendance Concerns
+- Teacher Feedback, if supported
+
+**Examinations**
+- Examination Schedule
+- Assessment Tasks
+- Marks Entry
+- Marks Review Status
+- Results, according to publication permissions
+
+**Communication**
+- Announcements
+- Class Notices
+- Messages, only if an actual local demo workflow is implemented
+
+**My Account**
+- My Profile
+- My Teaching Assignments
+- Preferences
+
+Do not expose Admin-only configuration or unrestricted staff management in the Teacher navigation.
+
+## 14. TEACHER DASHBOARD
+
+Display:
+- Today's classes
+- Next scheduled class
+- Weekly timetable
+- Assigned classes and subjects
+- Attendance sessions awaiting submission
+- Assignments awaiting review
+- Upcoming assessments
+- Marks-entry deadlines
+- Recent authorized announcements
+- Quick actions
+
+All numbers and lists must be derived from the current demo data.
+
+Provide a clear first-use state when a teacher has no assignments or timetable entries.
+
+## 15. MY CLASSES
+
+Create a searchable class list restricted to the logged-in demo Teacher's assignments.
+
+Each class card or row should display:
+- Class and section
+- Subject
+- Student count, when available
+- Next scheduled period
+- Attendance status for today
+- Pending academic tasks
+
+Opening a class must display a dedicated class workspace with appropriate tabs or sections:
+- Overview
+- Students
+- Attendance
+- Assignments
+- Assessments
+- Timetable
+- Academic progress
+
+Use separate subpages when a workflow requires substantial space or complexity. Do not compress everything into a single screen.
+
+Teachers must not access classes outside their authorized assignment scope by changing a URL or manually selecting another class.
+
+## 16. TEACHER TIMETABLE
+
+Create a dedicated timetable page with:
+- Weekly timetable
+- Daily schedule
+- Current day highlighting
+- Period start and end times
+- Class and section
+- Subject
+- Room, if available
+- Break periods
+- Empty periods
+- Upcoming class indicator
+
+The timetable must use the same shared logical source as Admin and Vice Principal.
+
+Teachers should have read-only timetable access by default. Do not allow teachers to edit the master timetable unless the existing permission system explicitly authorizes it.
+
+If a teacher has no timetable, explain whether no timetable has been assigned or timetable data has not yet been configured.
+
+## 17. ATTENDANCE WORKFLOW
+
+Implement a complete, practical attendance workflow for assigned classes.
+
+### Attendance process
+1. Select an assigned class and section.
+2. Select the applicable date and attendance session, if sessions exist.
+3. Load the current enrolled student list.
+4. Mark students Present, Absent, Late, or another status supported by the school's existing configuration.
+5. Provide bulk actions such as Mark All Present, while keeping individual corrections possible.
+6. Display total students and counts by status.
+7. Validate that each student has one valid status.
+8. Save a draft or submit attendance according to the supported workflow.
+9. Display a clear confirmation based on the actual save result.
+10. Show the saved attendance when the page is reopened.
+
+Requirements:
+- Prevent duplicate attendance records for the same student, class, date, and session.
+- Require a reason for edits to submitted attendance if the workflow requires review.
+- Retain a history of corrections in the frontend demo where practical.
+- Respect class assignment permissions.
+- Do not silently mark all students present without a clear user action.
+- Make the workflow usable on mobile screens.
+
+If attendance is already recorded, show the saved state and provide only authorized editing actions.
+
+## 18. ASSIGNMENTS AND HOMEWORK
+
+Create separate pages for:
+- Assignment list
+- Create assignment
+- Assignment details
+- Edit assignment
+- Submission or completion review, if supported
+- Assignment reports
+
+Teachers can create assignments only for assigned classes and subjects.
+
+Each assignment should support appropriate fields such as:
+- Title
+- Instructions
+- Class and section
+- Subject
+- Assignment type
+- Assigned date
+- Due date
+- Maximum marks, when applicable
+- Status
+- Optional local demo attachment metadata if file upload is actually implemented
+
+Support:
+- Draft and published states, if appropriate
+- Editing before or after publication according to the implemented rules
+- Search and filters
+- Overdue and upcoming indicators
+- Clear validation for missing fields and invalid dates
+- Links to the associated class and subject
+
+Do not create fake file upload controls or claim that parents or students received a real notification.
+
+## 19. EXAMINATIONS AND MARKS ENTRY
+
+Create dedicated pages for:
+- Examination schedule
+- My assessment tasks
+- Marks entry
+- Marks review status
+- Results, subject to permissions
+
+### Marks-entry workflow
+1. Select an authorized examination or assessment.
+2. Select an assigned class, section, and subject.
+3. Load the correct student roster.
+4. Display maximum marks and assessment rules.
+5. Enter marks or supported absent/not-applicable statuses.
+6. Validate the permitted mark range and required entries.
+7. Save a draft or submit for review.
+8. Show submission status and any validation errors.
+9. Reopen and display saved entries accurately.
+
+Requirements:
+- Prevent marks entry for unauthorized classes or subjects.
+- Prevent marks above the maximum.
+- Prevent invalid negative marks unless the grading system explicitly supports a different rule.
+- Distinguish draft, submitted, reviewed, and published states where the workflow supports them.
+- Do not allow a Teacher to publish official results unless explicitly authorized.
+- Preserve previously entered marks when navigating between records.
+- Show a clear audit-style history for corrections where practical.
+
+If examination configuration is not yet implemented, build against a clearly defined compatible data model and avoid inventing official examination records.
+
+## 20. STUDENT PERFORMANCE
+
+Create a student directory restricted to the teacher's assigned classes.
+
+A student profile should provide only authorized information:
+- Student name and school ID
+- Class and section
+- Attendance summary
+- Marks for the teacher's assigned subjects
+- Assignments and completion status where available
+- Academic progress
+- Relevant teacher feedback
+- Authorized support concerns
+
+Do not expose sensitive HR, financial, or unrelated family information.
+
+Use filters and clear links to move between the student, class, subject, attendance, and assessment records.
+
+## 21. LESSON PLANNING AND SYLLABUS PROGRESS
+
+If the existing architecture supports these modules, implement:
+- Lesson plan list and detail pages
+- Lesson plan creation and editing
+- Subject and class linkage
+- Planned date and topic
+- Learning objectives
+- Resources and notes
+- Completion status
+- Syllabus topic progress
+
+Otherwise, create a compatible minimal implementation with a clear data model, without duplicating existing functionality.
+
+Teachers should update progress only for assigned classes and subjects. The Vice Principal should be able to view authorized progress from the same shared data.
+
+## 22. ANNOUNCEMENTS AND COMMUNICATION
+
+Create a usable announcements interface for the Teacher role.
+
+Teachers may:
+- View authorized school announcements
+- Filter by date, category, and relevance
+- Open announcement details
+- Create class notices only if explicitly authorized
+- View draft and published states when implemented
+
+Do not claim that a notice was sent by SMS, email, push notification, or to an actual parent account. Any communication feature in this frontend demo must clearly represent local demo behavior.
+
+---
+
+# PART C — SHARED DATA AND PERMISSIONS
+
+## 23. SINGLE SOURCE OF TRUTH
+
+Use shared data entities wherever possible for:
+- Academic years and terms
+- Classes and sections
+- Subjects
+- Teacher and staff records
+- Teacher assignments
+- Student enrollment
+- Guardians, when relevant
+- Timetable entries
+- Attendance
+- Assignments
+- Assessments and marks
+- Academic activities
+- Approval requests
+- Intervention records
+
+Use stable IDs and explicit relationships rather than matching records by display names alone.
+
+When Admin changes an assignment, class, teacher, subject, or timetable entry, the corresponding authorized views for Vice Principal and Teacher should reflect that change.
+
+When a Teacher saves attendance, assignment data, marks, or syllabus progress, the authorized Vice Principal views should reflect those changes.
+
+Avoid separate role-specific copies of the same underlying record.
+
+Preserve historical records when a student changes class or a teacher's assignment changes.
+
+## 24. CENTRALIZED PERMISSION ENFORCEMENT
+
+Reuse the permission registry and role model from Prompt 2.
+
+Examples of relevant permissions include:
+- `academic.view`
+- `classes.view`
+- `teacher_assignments.view`
+- `timetable.view`
+- `timetable.edit`
+- `attendance.view`
+- `attendance.create`
+- `attendance.edit`
+- `attendance.approve`
+- `assignments.view`
+- `assignments.create`
+- `assignments.edit`
+- `marks.view`
+- `marks.enter`
+- `marks.edit`
+- `results.review`
+- `results.publish`
+- `syllabus.view`
+- `syllabus.update`
+- `student_progress.view`
+- `interventions.create`
+- `interventions.review`
+- `academic_reports.view`
+- `academic_approvals.review`
+
+Use existing permission identifiers when they already exist. Do not create duplicate IDs for the same action.
+
+Apply permissions at:
+1. Navigation rendering
+2. Route access
+3. Page-level actions
+4. Data filtering
+5. The actual operation that modifies data
+
+A hidden button is not sufficient authorization.
+
+Unknown permissions must default to deny. Teachers must be restricted to assigned classes, sections, and subjects. Vice Principals must be restricted to the scope and actions granted to them.
+
+This is frontend demo enforcement, not a substitute for backend authorization in a production application.
+
+## 25. DATA PERSISTENCE
+
+Reuse the existing storage and state-management strategy.
+
+If the project uses browser storage:
+- Persist legitimate changes across refreshes.
+- Validate data when loading stored records.
+- Handle missing, malformed, or outdated stored values safely.
+- Preserve theme preferences and unrelated existing data.
+- Do not clear all localStorage to reset one module.
+- Do not store passwords, secrets, or real sensitive personal records.
+- Avoid claiming cross-device synchronization.
+
+Provide a safe way to reset only the relevant demo data if the existing project already supports reset functionality. Require confirmation before destructive actions.
+
+---
+
+# PART D — UI AND EXPERIENCE QUALITY
+
+## 26. VISUAL DESIGN
+
+Follow the existing SCHLAR design system.
+
+The workspace should look like a professional school ERP:
+- Clear visual hierarchy
+- Appropriate whitespace
+- Consistent typography
+- Restrained use of color
+- Readable tables and forms
+- Helpful empty states
+- Useful status indicators
+- Consistent page headers and breadcrumbs
+- Clear primary and secondary actions
+- Responsive layouts
+- Accessible contrast and keyboard focus
+
+Do not solve usability problems by merely adding more cards, gradients, animations, or decorative graphics.
+
+Use tables for record management, structured forms for editing, clear detail views for individual records, and charts only when the data supports them.
+
+## 27. FORM AND TABLE QUALITY
+
+For all relevant forms and tables, implement:
+- Search
+- Filters
+- Sorting
+- Pagination or an appropriate manageable list pattern
+- Required-field validation
+- Clear inline error messages
+- Save and cancel actions
+- Confirmation for destructive operations
+- Useful empty states
+- Accurate status labels
+- Links to related records
+- Consistent date and number formatting
+
+Do not display buttons that do nothing. If a feature is not implemented, show an honest disabled state or an informative explanation rather than pretending the action succeeded.
+
+## 28. RESPONSIVE BEHAVIOR
+
+Test both desktop and phone-sized layouts.
+
+Teacher attendance, marks entry, timetable viewing, and assignment creation must remain usable on mobile devices.
+
+Avoid horizontal overflow, clipped buttons, inaccessible menus, excessively dense tables, and forms that require awkward scrolling. Use responsive tables, cards, or clearly separated form sections when appropriate.
+
+Parent and Teacher mobile experiences belong to the separate platform flow already established in Prompt 2. Do not replace or break that flow. Ensure that changes made to the Teacher's shared role components do not accidentally destroy the existing mobile experience.
+
+---
+
+# PART E — IMPLEMENTATION AND VERIFICATION
+
+## 29. IMPLEMENTATION ORDER
+
+Work incrementally in this order:
+
+1. Inspect existing architecture and report any important conflicts before making destructive changes.
+2. Implement Vice Principal navigation, dashboard, and academic overview.
+3. Implement academic monitoring and teacher coordination.
+4. Implement timetable and attendance monitoring.
+5. Implement examination monitoring and student progress.
+6. Implement academic approvals and reports.
+7. Implement Teacher navigation, dashboard, and My Classes.
+8. Implement Teacher timetable and attendance workflows.
+9. Implement assignments, marks entry, and student progress.
+10. Implement lesson planning, syllabus progress, and announcements where supported.
+11. Integrate all workflows with shared data and permissions.
+12. Test the existing Admin workspace, themes, routing, and Teacher mobile experience for regressions.
+
+Do not stop after creating the sidebar and dashboard. Every listed page must either be functional or clearly identified as incomplete.
+
+## 30. REQUIRED TESTS
+
+Run available automated checks and manually verify the workflows that cannot be automated easily.
+
+Test at minimum:
+
+1. Switching between Admin, Vice Principal, and Teacher demo roles.
+2. Correct role-specific sidebar items.
+3. Direct links and expandable folders.
+4. Refreshing a nested route.
+5. Browser back and forward navigation.
+6. Theme switching and custom theme preservation.
+7. Vice Principal access to authorized academic data.
+8. Teacher restriction to assigned classes and subjects.
+9. Timetable consistency across roles.
+10. Timetable conflict visibility.
+11. Attendance creation, saving, reopening, and authorized correction.
+12. Assignment creation, editing, and filtering.
+13. Marks validation and submission status.
+14. Student progress visibility restrictions.
+15. Approval authorization and duplicate-action prevention.
+16. Persistence after refresh.
+17. Handling malformed stored demo data.
+18. Responsive navigation and mobile forms.
+19. No broken buttons, blank routes, or console errors.
+20. No regressions to the Admin workspace from Prompt 3.
+
+Fix any errors discovered. Do not claim a test passed if it was not executed.
+
+## 31. COMPLETION REPORT
+
+After implementation, provide a concise but specific report covering:
+- Pages and workflows implemented for Vice Principal
+- Pages and workflows implemented for Teacher
+- Shared data relationships added or reused
+- Permissions enforced
+- Persistence behavior
+- Automated tests actually run and their results
+- Manual checks actually completed
+- Known issues and incomplete features
+- Any required follow-up work
+
+Do not generate a new standalone application, remove existing features, or replace working code simply to make implementation easier.
+
+**Final objective:** SCHLAR should provide a realistic, connected Vice Principal workspace for academic oversight and a practical Teacher workspace for everyday classroom operations, both integrated with the existing Admin-created school data and permission system.

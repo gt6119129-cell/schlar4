@@ -1,0 +1,1065 @@
+# SCHLAR — PROMPT 12 OF 12
+# FINAL COMPREHENSIVE AUDIT, TESTING, BUG FIXING, REGRESSION VERIFICATION, AND PROJECT DOCUMENTATION
+
+Continue working on my existing SCHLAR School Management System project in Google AI Studio.
+
+This is **Prompt 12 of 12 — the final implementation prompt**.
+
+Prompts 1–11 have already been completed. Your responsibility now is to conduct a comprehensive final audit of the entire SCHLAR application, repair defects, verify functionality, test all role experiences, check data consistency and permissions, improve implementation quality, and prepare complete project documentation.
+
+The objective is to deliver a polished, reliable, fully navigable, frontend-only school-management demonstration that can be confidently presented to faculty, school administrators, and other stakeholders.
+
+**This is not a request to rebuild or redesign the application. This is the final quality-assurance, stabilization, repair, and documentation phase.**
+
+Do not blindly trust previous implementation reports. Inspect the actual code and test the actual application.
+
+---
+
+# 1. FINAL PROJECT RULES — MUST BE PRESERVED
+
+## Product identity
+
+- Product name: SCHLAR.
+- Demo school: Greenfield International School.
+- Application scope: frontend-only school-management demonstration.
+- Use fictional school data.
+- Do not claim real backend functionality, production authentication, server-side security, payment processing, external messaging, or live integrations unless they actually exist and have been verified.
+
+## Exactly ten roles
+
+1. Admin
+2. Vice Principal
+3. Teacher
+4. Parent
+5. Accountant / Fee Manager
+6. HR / Staff Manager
+7. Librarian
+8. Transport Manager
+9. Receptionist / Front Office
+10. Exam Coordinator
+
+Do not introduce Student or Super Admin.
+
+## Experience boundaries
+
+- **Parent:** Mobile app only. Never introduce a Parent Web Portal.
+- **Teacher:** Web workspace and mobile app.
+- **Other roles:** Their existing role-specific web workspaces.
+- Admin and Vice Principal must remain separate roles with distinct permissions.
+
+## Existing application
+
+Preserve:
+
+- Existing role selector.
+- Existing role workspaces.
+- Existing sidebar and role/history-style workspace list.
+- Existing shared modules.
+- Existing design system and palettes.
+- Existing custom HEX palette editor.
+- Existing demo data and relationships.
+- Existing CRUD operations.
+- Existing permissions.
+- Existing responsive behavior.
+- Existing working features from Prompts 1–11.
+
+If a workspace already exists, improve it rather than creating another one. Selecting a role must open its existing workspace.
+
+---
+
+# 2. COMPLETE PROJECT INVENTORY
+
+Before modifying the code, inspect the complete application.
+
+Create an internal inventory covering:
+
+- Source-code structure.
+- Entry points.
+- Application routing.
+- Role definitions.
+- Permission registry.
+- Shared layout and navigation.
+- Design tokens and theme configuration.
+- Shared components.
+- Role-specific components.
+- State-management architecture.
+- Demo-data models and seed data.
+- Data persistence.
+- Forms and validation.
+- CRUD utilities.
+- Search and notifications.
+- Shared school modules.
+- Responsive styling.
+- Existing tests.
+- Build and development configuration.
+- Dependencies and scripts.
+
+Identify:
+
+1. Files or components that are duplicated.
+2. Unused or obsolete components.
+3. Broken or incomplete routes.
+4. Inconsistent data models.
+5. Missing or incorrect permission checks.
+6. Buttons and controls that do not work.
+7. Inconsistent demo records.
+8. Unhandled errors.
+9. Responsive layout defects.
+10. Accessibility problems.
+
+Do not delete files simply because they appear unused. Verify references and dependencies before removing anything.
+
+Do not perform a broad refactor unless a genuine issue requires it.
+
+---
+
+# 3. VERIFY ALL TEN ROLE WORKSPACES
+
+Inspect and test every role independently.
+
+## A. Admin
+
+Verify:
+
+- Dashboard and school overview.
+- Student management.
+- Teacher and staff management.
+- Academic structure.
+- Classes, sections, and subjects.
+- Timetable management.
+- Attendance oversight.
+- Fee and financial overview within authorized scope.
+- Examination oversight.
+- School calendar.
+- Announcements.
+- Notifications.
+- Reports.
+- Profile and settings.
+- Existing administrative controls.
+
+Check that important administrative workflows are accessible, correctly connected, and functional.
+
+## B. Vice Principal
+
+Verify:
+
+- Vice Principal dashboard.
+- Academic monitoring.
+- Attendance oversight.
+- Teacher and class monitoring.
+- Timetable access.
+- Examination oversight within permissions.
+- Announcements and calendar.
+- Reports.
+- Approval workflows where implemented.
+- Profile and settings.
+
+Ensure the Vice Principal is not accidentally granted unrestricted Admin capabilities.
+
+## C. Teacher — Web and Mobile
+
+Verify:
+
+- Dashboard.
+- Assigned classes and subjects.
+- Timetable.
+- Attendance.
+- Student information within authorized scope.
+- Academic workflows.
+- Examination-related workflows.
+- Announcements.
+- Notifications.
+- Profile.
+
+### Critical attendance regression checks
+
+Preserve the established Teacher Web attendance layout:
+
+- One row per student.
+- Applicable periods as columns.
+- Present indicated by ✓.
+- Absent indicated by X.
+
+Verify:
+
+- Correct student lists.
+- Correct class and section.
+- Correct subject assignment.
+- Correct period assignment.
+- Correct date.
+- Valid attendance submission.
+- Attendance update and persistence.
+- Correct attendance summaries.
+- No duplicate or conflicting submissions.
+
+Test that a teacher assigned to a legitimate class, subject, and period can mark attendance without being incorrectly blocked by unrelated subject mappings.
+
+Verify the mobile experience remains usable without breaking the established desktop workflow.
+
+## D. Parent — Mobile App Only
+
+Verify:
+
+- Parent mobile dashboard.
+- Linked children.
+- Child switching where applicable.
+- Attendance.
+- Timetable.
+- Announcements.
+- Notifications.
+- Fee information and payment history where authorized.
+- Examination schedules and permitted results.
+- Transport information.
+- Profile and settings.
+
+Critical checks:
+
+- Parents can only access linked children.
+- A parent cannot access another family's records by changing an identifier or navigating directly.
+- The selected child's context remains clear.
+- Parent navigation is appropriate for mobile.
+- No Parent Web Portal has been introduced.
+
+## E. Accountant / Fee Manager
+
+Verify:
+
+- Fee dashboard.
+- Fee structures.
+- Fee assignments.
+- Invoices.
+- Payment recording in the demo.
+- Outstanding balances.
+- Payment history.
+- Receipts.
+- Due dates.
+- Financial reports.
+- Search and filters.
+- Profile and settings.
+
+Verify that totals are calculated from actual demo records. Do not allow contradictory payment balances or duplicate payment entries.
+
+## F. HR / Staff Manager
+
+Verify:
+
+- HR dashboard.
+- Staff directory.
+- Staff profiles.
+- Department and designation data.
+- Staff records and assignments.
+- Leave management where implemented.
+- Approval workflows where implemented.
+- Relevant reports.
+- Profile and settings.
+
+Verify that sensitive staff data remains restricted.
+
+## G. Librarian
+
+Verify:
+
+- Library dashboard.
+- Book catalogue.
+- Book copies.
+- Member records.
+- Issue and return.
+- Due dates.
+- Overdue records.
+- Reservations.
+- Lost or damaged records.
+- Transactions.
+- Reports.
+- Profile and settings.
+
+Verify that book availability changes correctly after issue and return.
+
+## H. Transport Manager
+
+Verify:
+
+- Transport dashboard.
+- Vehicle management.
+- Driver records.
+- Routes and stops.
+- Schedules.
+- Student transport assignments.
+- Capacity checks.
+- Maintenance.
+- Incidents.
+- Reports.
+- Profile and settings.
+
+Verify that assignments refer to valid vehicles, drivers, students, and routes.
+
+## I. Receptionist / Front Office
+
+Verify:
+
+- Reception dashboard.
+- Visitor registration.
+- Visitor check-in and check-out.
+- Appointments.
+- Admission enquiries.
+- Enquiry tracking.
+- Communication logs.
+- Authorized directories.
+- Reports.
+- Profile and settings.
+
+Verify that sensitive records are not exposed unnecessarily.
+
+## J. Exam Coordinator
+
+Verify:
+
+- Examination dashboard.
+- Exam creation.
+- Exam calendar.
+- Timetable.
+- Class and subject mapping.
+- Room allocation.
+- Readiness.
+- Marks-entry status.
+- Results review.
+- Approval workflows.
+- Result publication.
+- Report cards.
+- Reports.
+- Profile and settings.
+
+Verify that unauthorized users cannot edit marks or publish results.
+
+Do not invent examination results to make the dashboard appear complete.
+
+---
+
+# 4. FINAL SHARED MODULE VERIFICATION
+
+Inspect the shared modules implemented in Prompt 9.
+
+Verify:
+
+## Academic calendar
+
+- Events display correctly.
+- Dates and categories are valid.
+- Authorized users can create and edit events.
+- Unauthorized users cannot change protected events.
+- Updates appear in relevant views.
+
+## Announcements and notice board
+
+- Announcement creation works.
+- Editing works.
+- Audience targeting is respected.
+- Draft and published states are correct.
+- Expired and archived states behave appropriately.
+- Announcements appear for the correct audience.
+
+## Internal communication
+
+- Message creation and display work where implemented.
+- Recipients are validated.
+- Read states update correctly.
+- Restricted records remain private.
+
+## Notifications
+
+- Correct notification data is displayed.
+- Unread counts are accurate.
+- Mark-as-read works.
+- Mark-all-as-read works.
+- Related navigation opens the correct authorized record.
+- Notifications do not leak restricted information.
+
+## Global search
+
+- Search returns relevant records.
+- Search filters respect role permissions.
+- Search results open the correct records.
+- No unauthorized records appear.
+- Empty and no-results states work.
+
+## Shared profiles and directories
+
+- Student, guardian, teacher, and staff records use consistent identifiers.
+- Authorized users can open the correct profiles.
+- Restricted fields remain hidden or inaccessible.
+- Updates appear in relevant modules.
+
+## Activity history
+
+- Meaningful actions are recorded where implemented.
+- Actor and timestamp information are accurate within the demo.
+- Ordinary users cannot modify protected audit history.
+- No unnecessary sensitive data is recorded.
+
+## Reports and exports
+
+- Filters work.
+- Totals are accurate.
+- Exported records match the permitted filtered dataset.
+- Export does not expose unauthorized information.
+- Print-friendly views work where implemented.
+
+Do not claim that the demo has a tamper-proof server-side audit system or real external messaging.
+
+---
+
+# 5. COMPLETE CRUD AND DATA-INTEGRITY AUDIT
+
+Verify the Create, Read, Update, and Delete or Archive operations across the existing modules.
+
+For each relevant entity, check:
+
+### Create
+
+- Correct form opens.
+- Required fields are validated.
+- Related records are valid.
+- Duplicate submissions are prevented.
+- The new record is saved.
+- The record appears in relevant lists.
+- Related summaries update.
+
+### Read
+
+- Correct details appear.
+- Search and filters work.
+- Relationships are accurate.
+- Missing records are handled gracefully.
+- Access restrictions are respected.
+
+### Update
+
+- The correct existing record is loaded.
+- Existing values are preserved unless changed.
+- Validation works.
+- Only the intended record is updated.
+- Related views refresh.
+- No accidental duplicate is created.
+
+### Delete or archive
+
+- Confirmation is required where appropriate.
+- Permissions are checked.
+- Historical information is preserved where required.
+- Invalid relationships are prevented.
+- Related views update correctly.
+
+## Data-integrity examples
+
+Verify that:
+
+- Student records link to the correct guardians.
+- Students belong to valid classes and sections.
+- Teachers have valid class and subject assignments.
+- Attendance references valid students and periods.
+- Timetable entries reference valid classes, teachers, subjects, rooms, and periods.
+- Fee invoices refer to the correct students.
+- Payments do not exceed valid outstanding balances unless explicitly supported.
+- Fee balances match actual fee and payment records.
+- Examination marks refer to the correct exam, student, and subject.
+- Library transactions reference valid books and members.
+- Book availability matches transaction history.
+- Transport assignments reference valid students, vehicles, routes, and drivers.
+- Announcements have valid audience and publication information.
+- Notifications reference valid events or records where applicable.
+
+Do not modify historical records incorrectly to make current summaries appear consistent.
+
+---
+
+# 6. CENTRALIZED PERMISSION AND PRIVACY AUDIT
+
+Inspect the existing centralized permission registry.
+
+Verify:
+
+- Unknown permissions are denied by default.
+- Permission checks happen during rendering.
+- Permission checks happen again during action execution.
+- Restricted data is filtered at the data-access level.
+- Direct navigation does not bypass permissions.
+- Search does not reveal unauthorized records.
+- Notifications do not reveal restricted information.
+- Exports respect permissions.
+- Parent access is restricted to linked children.
+- Teacher access is restricted to assigned classes, subjects, periods, and authorized records.
+- Financial information is appropriately restricted.
+- HR information is appropriately restricted.
+- Examination approvals and publication are appropriately restricted.
+- Admin and Vice Principal permissions remain distinct.
+
+Test unauthorized actions directly, not only through the visible interface.
+
+If the permission system has gaps, repair them without removing legitimate role capabilities.
+
+Document the limitation that frontend-only permissions are not production-grade server-side security.
+
+---
+
+# 7. FINAL DESIGN AND RESPONSIVE AUDIT
+
+Inspect the existing application at representative viewport sizes:
+
+- 320 × 700.
+- 375 × 812.
+- 390 × 844.
+- 768 × 1024.
+- 1024 × 768.
+- 1366 × 768.
+- 1440 × 900.
+- 1920 × 1080.
+
+Check:
+
+- Sidebar and navigation.
+- Role selection.
+- Dashboard layouts.
+- Tables.
+- Forms.
+- Dialogs.
+- Dropdowns.
+- Charts.
+- Reports.
+- Search.
+- Notifications.
+- Profile pages.
+- Parent mobile app.
+- Teacher mobile experience.
+
+Fix:
+
+- Horizontal overflow.
+- Clipped buttons.
+- Overlapping content.
+- Unreadable text.
+- Inaccessible controls.
+- Misaligned forms.
+- Unusable tables.
+- Dialogs extending beyond the viewport.
+- Broken mobile navigation.
+- Inconsistent spacing.
+- Theme-related contrast problems.
+
+Preserve the existing design system and all twelve palettes.
+
+Default palette:
+
+- Primary: `#164E55`
+- Secondary: `#287B7A`
+- Accent: `#C47D54`
+- Background: `#F5F0E7`
+- Surface: `#FFFFFF`
+
+Verify that custom HEX palette input still works.
+
+Do not introduce a Parent Web Portal while fixing responsive components.
+
+---
+
+# 8. ACCESSIBILITY AUDIT
+
+Check:
+
+- Semantic page structure.
+- Correct heading hierarchy.
+- Input labels.
+- Accessible names for icon-only controls.
+- Keyboard navigation.
+- Visible focus states.
+- Logical focus order.
+- Keyboard-accessible dialogs and menus.
+- Appropriate focus handling.
+- Sufficient contrast.
+- Readable validation messages.
+- Screen-reader-friendly status feedback.
+- Touch target usability.
+- Text scaling and browser zoom.
+- Reduced-motion preferences where relevant.
+
+Aim for WCAG 2.2 AA-aligned usability where practical.
+
+Do not claim complete WCAG compliance without a sufficient accessibility assessment.
+
+---
+
+# 9. CODE QUALITY, BUILD, AND RUNTIME STABILITY
+
+Inspect the actual project configuration.
+
+Where supported, run:
+
+- Dependency and configuration checks.
+- Production build.
+- Type checking.
+- Linting.
+- Existing unit tests.
+- Existing integration tests.
+- Browser or end-to-end tests.
+- Runtime and console-error checks.
+
+Fix:
+
+- Broken imports.
+- Missing exports.
+- Invalid routes.
+- Incorrect component references.
+- Type errors.
+- Broken event handlers.
+- Invalid state updates.
+- Unhandled exceptions.
+- Duplicate or unnecessary state.
+- Obvious memory or rendering issues.
+- Unused dependencies introduced during previous work.
+- Missing error handling.
+
+Do not upgrade or replace major dependencies without a genuine need.
+
+Do not suppress errors merely to obtain a successful build.
+
+If a build or test fails, investigate the cause and repair it where possible. If an issue cannot be fixed safely, document it.
+
+Never claim that the application builds successfully unless the build was actually executed and passed.
+
+---
+
+# 10. COMPLETE END-TO-END DEMONSTRATION SCENARIOS
+
+Test realistic demonstration workflows using the existing fictional data.
+
+These scenarios are important because individual screens may work while the overall application remains disconnected.
+
+## Scenario 1: Student admission and assignment
+
+1. Authorized user creates a student.
+2. Assign the student to a valid class and section.
+3. Link the appropriate guardian.
+4. Verify the student appears in the correct authorized directory.
+5. Verify the parent can access the linked child through the mobile app.
+6. Verify unrelated parents cannot access that record.
+
+## Scenario 2: Teacher assignment and attendance
+
+1. Authorized user assigns a teacher to a class and subject.
+2. Teacher opens the correct timetable.
+3. Teacher opens the attendance workflow.
+4. Teacher marks students Present or Absent.
+5. Save the attendance.
+6. Verify the records and summaries update.
+7. Verify unauthorized teachers cannot modify the attendance.
+
+## Scenario 3: Fee management
+
+1. Authorized user creates or selects a fee structure.
+2. Assign the fee to a student.
+3. Create or verify the invoice.
+4. Record a simulated payment.
+5. Verify the outstanding balance.
+6. Verify the payment history and receipt.
+7. Verify unauthorized roles cannot perform financial actions.
+
+## Scenario 4: Examination workflow
+
+1. Exam Coordinator creates an examination.
+2. Assign the correct class and subjects.
+3. Configure the timetable and room where supported.
+4. Enter permitted marks.
+5. Validate the marks.
+6. Review the result.
+7. Verify the approval and publication boundaries.
+8. Verify permitted users see published results.
+
+## Scenario 5: Library workflow
+
+1. Librarian creates or selects a book.
+2. Verify available copies.
+3. Issue a copy to an authorized member.
+4. Verify availability and due date.
+5. Return the book.
+6. Verify availability and transaction history.
+
+## Scenario 6: Transport workflow
+
+1. Transport Manager creates or selects a route.
+2. Assign a valid vehicle and driver.
+3. Assign a student to the route.
+4. Validate capacity and relationships.
+5. Verify the student assignment in relevant authorized views.
+
+## Scenario 7: Announcement and notification workflow
+
+1. Authorized user creates an announcement.
+2. Select an appropriate audience.
+3. Publish the announcement.
+4. Verify the correct users can see it.
+5. Verify relevant notification behavior.
+6. Mark a notification as read.
+7. Verify the unread count updates.
+
+## Scenario 8: Reception workflow
+
+1. Receptionist registers a visitor.
+2. Record check-in.
+3. Record check-out.
+4. Verify the visitor history and status.
+
+## Scenario 9: HR workflow
+
+1. Authorized HR user creates or updates a staff record.
+2. Verify the directory updates.
+3. Complete a supported leave or approval workflow.
+4. Verify unauthorized roles cannot access restricted HR information.
+
+## Scenario 10: Calendar and school-wide communication
+
+1. Authorized user creates a school event.
+2. Verify it appears in the calendar.
+3. Edit the event.
+4. Verify the updated information appears in relevant views.
+5. Verify role restrictions are respected.
+
+For each scenario, record the expected outcome and actual outcome.
+
+Do not claim a scenario passed if only its starting screen was inspected.
+
+If a workflow cannot be completed because a required module is missing or broken, document the exact blocker and repair it if possible.
+
+---
+
+# 11. DEMO RESET AND PRESENTATION READINESS
+
+Inspect the existing demo-data reset functionality.
+
+If implemented:
+
+- Verify confirmation is required.
+- Verify the intended initial fictional dataset is restored.
+- Verify reset does not affect unrelated application settings.
+- Verify users receive clear feedback.
+- Verify the application remains usable after reset.
+
+If a reset feature is missing and is necessary for repeatable demonstrations, implement a safe reset mechanism using the existing architecture.
+
+Provide a documented initial demo state so that the application can be demonstrated consistently.
+
+## Presentation readiness
+
+Ensure:
+
+- Role selection is easy to understand.
+- All ten roles are accessible.
+- The correct role workspace opens.
+- The application has realistic fictional data.
+- Important workflows can be demonstrated.
+- Empty screens are intentional and explained.
+- There are no obvious placeholder pages.
+- No visible buttons falsely suggest functionality.
+- No contradictory dashboard metrics appear.
+- No unnecessary debug information is visible to ordinary demo users.
+- The application can be reset to a known demo state when supported.
+
+Do not invent data or show fake success states to make the presentation look impressive.
+
+---
+
+# 12. FINAL BUG PRIORITIZATION AND REPAIR
+
+Classify all discovered issues:
+
+### P0 — Critical
+
+Examples:
+
+- Application does not start.
+- Build fails because of application code.
+- Major route is inaccessible.
+- Unauthorized access exposes restricted information.
+- Data corruption or loss.
+- Critical workflow cannot be completed.
+
+### P1 — High
+
+Examples:
+
+- CRUD operations fail.
+- Important role workspace is broken.
+- Attendance or financial calculations are incorrect.
+- Major navigation or responsive failures.
+- Permission enforcement is incomplete.
+
+### P2 — Medium
+
+Examples:
+
+- Filters or search behave incorrectly.
+- Inconsistent data display.
+- Broken secondary actions.
+- Significant usability or accessibility issues.
+
+### P3 — Low
+
+Examples:
+
+- Minor visual inconsistency.
+- Small spacing problems.
+- Non-critical wording or alignment defects.
+
+Fix P0 and P1 first, then P2. Address P3 where practical without risking stable functionality.
+
+Do not hide known defects or mark them complete without evidence.
+
+---
+
+# 13. FINAL PROJECT DOCUMENTATION
+
+Create or update project documentation inside the existing repository.
+
+Use the project's established documentation conventions. Avoid creating duplicate or contradictory documents.
+
+At minimum, provide:
+
+## A. Main README
+
+Document:
+
+- SCHLAR overview.
+- Project purpose.
+- Main features.
+- Ten roles.
+- Parent mobile-only and Teacher web/mobile boundaries.
+- Technology stack actually used.
+- Prerequisites.
+- Installation steps.
+- Development commands.
+- Production build command.
+- How to run the demo.
+- How to access role workspaces.
+- Demo-data behavior.
+- Reset instructions if supported.
+- Known limitations.
+
+All commands must match the actual project configuration. Do not invent scripts or environment variables.
+
+## B. Project Architecture Documentation
+
+Explain:
+
+- Main directory structure.
+- Application entry points.
+- Routing.
+- Shared components.
+- Role-specific workspaces.
+- Permission architecture.
+- Data models.
+- State management.
+- Persistence.
+- Theme and palette system.
+- Shared modules.
+
+## C. Role and Permission Documentation
+
+Create a clear role reference showing:
+
+- Each of the ten roles.
+- Its main workspace.
+- Its main modules.
+- Important permission boundaries.
+- Parent and Teacher experience differences.
+
+Do not document permissions that are not actually implemented.
+
+## D. Demo Data Documentation
+
+Explain:
+
+- Seed data structure.
+- Main entity relationships.
+- Stable identifiers.
+- Data persistence behavior.
+- Reset behavior.
+- Fictional-data limitations.
+
+## E. Testing Documentation
+
+Document:
+
+- Tests that were actually executed.
+- Results.
+- Important regression checks.
+- Responsive test coverage.
+- Known defects.
+- Tests not executed and why.
+
+## F. Known Limitations
+
+Clearly identify:
+
+- Frontend-only architecture.
+- Client-side permission limitations.
+- Lack of real server-side authentication, if applicable.
+- Lack of real database persistence, if applicable.
+- Simulated payment behavior.
+- Simulated messaging and notification delivery, if applicable.
+- Any incomplete features.
+- Any remaining defects.
+
+Do not misrepresent a frontend demo as a production-ready school platform.
+
+---
+
+# 14. REQUIRED FINAL VERIFICATION REPORT
+
+At the end, provide a detailed final report with the following sections.
+
+## 1. Overall Project Status
+
+Report whether SCHLAR:
+
+- Starts successfully.
+- Builds successfully.
+- Has all ten role workspaces accessible.
+- Has working core navigation.
+- Has working shared modules.
+- Has working CRUD operations.
+- Has consistent demo data.
+- Has verified role permissions.
+- Has usable responsive layouts.
+- Has complete project documentation.
+
+Use honest statuses such as:
+
+- Verified.
+- Partially verified.
+- Not verified.
+- Failed.
+- Not applicable.
+
+Do not use a generic completion percentage without measurable evidence.
+
+## 2. Role-by-Role Verification
+
+Provide a table covering all ten roles.
+
+Include:
+
+- Workspace status.
+- Main functionality checked.
+- Important permissions checked.
+- Responsive status.
+- Remaining issues.
+
+## 3. Workflow Test Results
+
+Provide a table for the ten demonstration scenarios in Section 10.
+
+Include:
+
+- Scenario.
+- Expected result.
+- Actual result.
+- Test status.
+- Remaining blocker, if any.
+
+## 4. Technical Verification
+
+Report actual results for:
+
+- Build.
+- Type checking.
+- Linting.
+- Automated tests.
+- Browser tests.
+- Runtime errors.
+- Console errors.
+- Responsive checks.
+
+Only report tests that were genuinely executed.
+
+## 5. Bugs Found and Fixed
+
+List:
+
+- Issue.
+- Severity.
+- Root cause.
+- Files or components changed.
+- Fix applied.
+- Verification result.
+
+## 6. Remaining Issues
+
+List all known incomplete or unresolved issues, their severity, and what is required to resolve them.
+
+Do not hide unresolved defects to claim completion.
+
+## 7. Documentation Created or Updated
+
+List the documentation files and briefly describe their contents.
+
+## 8. How to Run and Demonstrate SCHLAR
+
+Provide exact commands based on the existing project configuration.
+
+Explain:
+
+1. How to start the application.
+2. How to open the role selector.
+3. How to access each role.
+4. How to demonstrate the important workflows.
+5. How to reset the demo when supported.
+
+## 9. Final Completion Assessment
+
+Give a clear conclusion:
+
+- What is genuinely complete.
+- What is partially complete.
+- What remains unverified.
+- Whether the project is ready for a frontend demonstration.
+- Whether additional backend work would be required before production use.
+
+Do not call SCHLAR production-ready solely because the frontend demo works.
+
+---
+
+# 15. STRICT IMPLEMENTATION RULES
+
+Throughout Prompt 12:
+
+1. Audit before modifying.
+2. Preserve all working functionality.
+3. Avoid unnecessary rewrites.
+4. Do not create duplicate role workspaces.
+5. Do not introduce additional roles.
+6. Do not introduce a Parent Web Portal.
+7. Preserve Teacher web and mobile.
+8. Preserve Admin and Vice Principal separation.
+9. Preserve existing demo data and relationships.
+10. Do not bypass permissions for convenience.
+11. Do not fabricate test results.
+12. Do not suppress genuine errors.
+13. Do not claim external integrations exist when they do not.
+14. Do not remove important features to make the project easier.
+15. Do not start an unrelated redesign.
+16. Make changes directly in the existing project.
+17. Run available tests after changes.
+18. Document anything that cannot be verified.
+
+If a defect is outside the safe scope of this final prompt, document it instead of making a risky change that could damage stable functionality.
+
+---
+
+# FINAL DIRECTIVE
+
+This is the final quality and stabilization stage of SCHLAR.
+
+I want an application that is genuinely usable as a professional school-management frontend demonstration, not just a collection of attractive screens.
+
+Inspect the actual code. Test the actual workflows. Repair real defects. Verify permissions. Preserve the ten role experiences. Validate data relationships. Check responsive behavior. Prepare complete documentation.
+
+**Do not merely tell me that SCHLAR is complete. Demonstrate what works, identify what does not, fix what can safely be fixed, and provide evidence-based final results.**
+
+When finished, stop the 12-prompt sequence and provide the final project handover report. Do not start another implementation prompt automatically.
